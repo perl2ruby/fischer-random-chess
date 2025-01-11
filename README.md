@@ -5,7 +5,7 @@ This repo is used to create a LaTeX document that shows how there are 960 unique
 
 ## Contents of Repo
 The following are important files:
-+ [simple-gen-fisher-random-placements.rb](./ruby/simple-gen-fisher-random-placements.rb)
++ [`simple-gen-fisher-random-placements.rb`](./ruby/simple-gen-fisher-random-placements.rb)
   : This is a script that generates all the unique starting placements in a text in a tabular form with N number of placements per row. There is also pagination after every M rows.
 + [gen-fisher-random-placements.rb](./ruby/gen-fisher-random-placements.rb)
   : This is a script that generates all the unique starting placements in LaTeX tabular form that is suitable for insertion into [fischer-random-chess.tex.template](./tex/fischer-random-chess.tex.template) between `BEGIN: pasting` and [END: pasting] and generates the file [fischer-random-chess.tex](./tex/fischer-random-chess.tex)
@@ -19,7 +19,6 @@ The following are important files:
 
 ## PDF Document Generation
 To generate the PDF ([fischer-random-chess.tex](./tex/fischer-random-chess.tex)) run the following command(s):
-+ 
 ```
 make cleanall # To clean up auxiliary files and the generated PDF
 make clean    # To clean up auxiliary files
