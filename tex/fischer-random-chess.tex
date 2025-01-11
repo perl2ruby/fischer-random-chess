@@ -1,0 +1,770 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage[table,usenames,dvipsnames]{xcolor}
+\usepackage{xskak}
+\usepackage[bottom=2.0cm, right=2.0cm, left=2.0cm, top=2.0cm]{geometry}
+\usepackage{fancyhdr}
+
+% https://www.overleaf.com/learn/latex/Headers_and_footers#LaTeX_page_styles
+% https://www.overleaf.com/learn/latex/Headers_and_footers#Changing_headers_and_footers_for_%E2%80%9Cnon_standard%E2%80%9D_LaTeX_document_classes
+\begin{document}
+\pagestyle{fancy}
+\fancyhead{} % clear all header fields
+\fancyfoot{} % clear all footer fields
+\fancyhead[R]{\thepage}
+
+\title{Unique Starting Positions in Fischer Random Chess}
+\author{}
+\date{}
+\maketitle
+
+\section{Introduction}
+
+Chess960, also known as Fischer Random Chess, is a chess variant where the starting position of the pieces on the first rank is randomized, subject to certain constraints. This randomization leads to 960 unique possible starting positions. This document will mathematically derive this number using combinatorial principles.
+
+\section{Constraints}
+
+The arrangement of pieces in Chess960 must adhere to the following rules:
+
+\begin{enumerate}
+    \item The king must be placed somewhere between the two rooks.
+    \item The bishops must be placed on opposite-colored squares.
+    \item The white pieces are placed on the first rank, and the black pieces are placed on the eighth rank, mirroring the white pieces' arrangement.
+\end{enumerate}
+
+\section{Derivation}
+
+To calculate the total number of possible starting positions, we will break down the placement of pieces into independent choices and use the multiplication principle of counting.
+
+\subsection{Bishop Placement}
+
+There are 4 light squares and 4 dark squares on the first rank. We must place one bishop on a light square and one bishop on a dark square.
+
+\begin{itemize}
+    \item Number of ways to choose a light square for the first bishop: 4
+    \item Number of ways to choose a dark square for the second bishop: 4
+\end{itemize}
+
+Therefore, the number of ways to place the bishops is $4 \times 4 = 16$.
+
+\subsection{Queen Placement}
+
+After placing the bishops, there are 6 remaining empty squares. The queen can be placed on any of these 6 squares.
+
+\begin{itemize}
+    \item Number of ways to place the queen: 6
+\end{itemize}
+
+\subsection{Knight Placement}
+
+With the bishops and queen placed, there are 5 empty squares left. We need to place two knights. The order in which we place the knights does not matter, so we will use combinations.
+
+\begin{itemize}
+    \item Number of ways to choose 2 squares out of 5 for the knights: $\binom{5}{2} = \frac{5!}{2!(5-2)!} = \frac{5 \times 4}{2 \times 1} = 10$
+\end{itemize}
+
+\subsection{Rook and King Placement}
+
+After placing the bishops, queen, and knights, there are 3 empty squares remaining. The king must be placed between the two rooks. This leaves only one possible configuration for the rooks and king: Rook, King, Rook.
+
+\begin{itemize}
+    \item Number of ways to place the rooks and king: 1
+\end{itemize}
+
+\section{Total Number of Positions}
+
+To get the total number of possible starting positions, we multiply the number of possibilities for each step:
+
+\[ \text{Total Positions} = \text{Bishop Positions} \times \text{Queen Positions} \times \text{Knight Positions} \times \text{Rook and King Positions} \]
+\[ \text{Total Positions} = 16 \times 6 \times 10 \times 1 = 960 \]
+
+\section{Conclusion}
+Therefore, there are 960 possible starting positions in Chess960 (Fischer Random Chess), as derived mathematically using combinatorial principles.
+
+\appendix
+
+\section{Starting Postions Enumerated}
+We now enumerate these positions using a simple notation. The major pieces are \textbf{B} (Bishop), \textbf{K} (King), \textbf{N} (Knight), \textbf{Q} (Queen) and \textbf{R} (Rook). The starting positions are shown lexicographically sorted -- for example, \textbf{BBNNQRKR} precedes \textbf{NBBRQKNR}. Each starting postion has a unique number associated with it which denotes the position's lexicographic order within the universe of Fischer Random games. At some point the lexicographic order of the starting postion (or the string representing the position) could be used in \textbf{PGN} files to denote that that game is a Fischer Random game. Additionally, this information could be useful in searching game databases for games involving a specific starting position and the lookup could either be based on the lexicographic order number or the string representing  the starting position. The normal chess game corresponds to \textbf{RNBQKBNR} whose lexicographic number is \textbf{829}. 
+
+
+\storechessboardstyle{8x1}{%
+labelbottom=false,
+labelleft=false,
+maxfield=h1,
+borderwidth=0.5mm,
+color=white,
+colorwhitebackfields,
+blackfieldmaskcolor=black,
+whitepiecemaskcolor=red,
+blackpiececolor=cyan,
+blackpiecemaskcolor=blue,
+addfontcolors,
+pgfstyle=border,
+color=white,
+markregion=a1-h1,
+showmover=false,
+hlabelwidth=4pt,
+vlabellift=0pt}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+1. \textbf{BBNNQRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Nd1,Qe1,Rf1,Kg1,Rh1},padding=0.2ex]  & 2. \textbf{BBNNRKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Nd1,Re1,Kf1,Qg1,Rh1},padding=0.2ex]  \\\hline
+3. \textbf{BBNNRKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Nd1,Re1,Kf1,Rg1,Qh1},padding=0.2ex]  & 4. \textbf{BBNNRQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Nd1,Re1,Qf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+5. \textbf{BBNQNRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Qd1,Ne1,Rf1,Kg1,Rh1},padding=0.2ex]  & 6. \textbf{BBNQRKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Qd1,Re1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+7. \textbf{BBNQRKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Qd1,Re1,Kf1,Rg1,Nh1},padding=0.2ex]  & 8. \textbf{BBNQRNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Qd1,Re1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+9. \textbf{BBNRKNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Rd1,Ke1,Nf1,Qg1,Rh1},padding=0.2ex]  & 10. \textbf{BBNRKNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Rd1,Ke1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+11. \textbf{BBNRKQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Rd1,Ke1,Qf1,Ng1,Rh1},padding=0.2ex]  & 12. \textbf{BBNRKQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Rd1,Ke1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+13. \textbf{BBNRKRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Rd1,Ke1,Rf1,Ng1,Qh1},padding=0.2ex]  & 14. \textbf{BBNRKRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Rd1,Ke1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+15. \textbf{BBNRNKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Rd1,Ne1,Kf1,Qg1,Rh1},padding=0.2ex]  & 16. \textbf{BBNRNKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Rd1,Ne1,Kf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+17. \textbf{BBNRNQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Rd1,Ne1,Qf1,Kg1,Rh1},padding=0.2ex]  & 18. \textbf{BBNRQKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Rd1,Qe1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+19. \textbf{BBNRQKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Rd1,Qe1,Kf1,Rg1,Nh1},padding=0.2ex]  & 20. \textbf{BBNRQNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Nc1,Rd1,Qe1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+21. \textbf{BBQNNRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Qc1,Nd1,Ne1,Rf1,Kg1,Rh1},padding=0.2ex]  & 22. \textbf{BBQNRKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Qc1,Nd1,Re1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+23. \textbf{BBQNRKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Qc1,Nd1,Re1,Kf1,Rg1,Nh1},padding=0.2ex]  & 24. \textbf{BBQNRNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Qc1,Nd1,Re1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+25. \textbf{BBQRKNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Qc1,Rd1,Ke1,Nf1,Ng1,Rh1},padding=0.2ex]  & 26. \textbf{BBQRKNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Qc1,Rd1,Ke1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+27. \textbf{BBQRKRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Qc1,Rd1,Ke1,Rf1,Ng1,Nh1},padding=0.2ex]  & 28. \textbf{BBQRNKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Qc1,Rd1,Ne1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+29. \textbf{BBQRNKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Qc1,Rd1,Ne1,Kf1,Rg1,Nh1},padding=0.2ex]  & 30. \textbf{BBQRNNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Qc1,Rd1,Ne1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+31. \textbf{BBRKNNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Kd1,Ne1,Nf1,Qg1,Rh1},padding=0.2ex]  & 32. \textbf{BBRKNNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Kd1,Ne1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+33. \textbf{BBRKNQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Kd1,Ne1,Qf1,Ng1,Rh1},padding=0.2ex]  & 34. \textbf{BBRKNQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Kd1,Ne1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+35. \textbf{BBRKNRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Kd1,Ne1,Rf1,Ng1,Qh1},padding=0.2ex]  & 36. \textbf{BBRKNRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Kd1,Ne1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+37. \textbf{BBRKQNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Kd1,Qe1,Nf1,Ng1,Rh1},padding=0.2ex]  & 38. \textbf{BBRKQNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Kd1,Qe1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+39. \textbf{BBRKQRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Kd1,Qe1,Rf1,Ng1,Nh1},padding=0.2ex]  & 40. \textbf{BBRKRNNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Kd1,Re1,Nf1,Ng1,Qh1},padding=0.2ex]  \\\hline
+41. \textbf{BBRKRNQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Kd1,Re1,Nf1,Qg1,Nh1},padding=0.2ex]  & 42. \textbf{BBRKRQNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Kd1,Re1,Qf1,Ng1,Nh1},padding=0.2ex]  \\\hline
+43. \textbf{BBRNKNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Nd1,Ke1,Nf1,Qg1,Rh1},padding=0.2ex]  & 44. \textbf{BBRNKNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Nd1,Ke1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+45. \textbf{BBRNKQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Nd1,Ke1,Qf1,Ng1,Rh1},padding=0.2ex]  & 46. \textbf{BBRNKQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Nd1,Ke1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+47. \textbf{BBRNKRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Nd1,Ke1,Rf1,Ng1,Qh1},padding=0.2ex]  & 48. \textbf{BBRNKRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Nd1,Ke1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+49. \textbf{BBRNNKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Nd1,Ne1,Kf1,Qg1,Rh1},padding=0.2ex]  & 50. \textbf{BBRNNKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Nd1,Ne1,Kf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+51. \textbf{BBRNNQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Nd1,Ne1,Qf1,Kg1,Rh1},padding=0.2ex]  & 52. \textbf{BBRNQKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Nd1,Qe1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+53. \textbf{BBRNQKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Nd1,Qe1,Kf1,Rg1,Nh1},padding=0.2ex]  & 54. \textbf{BBRNQNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Nd1,Qe1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+55. \textbf{BBRQKNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Qd1,Ke1,Nf1,Ng1,Rh1},padding=0.2ex]  & 56. \textbf{BBRQKNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Qd1,Ke1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+57. \textbf{BBRQKRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Qd1,Ke1,Rf1,Ng1,Nh1},padding=0.2ex]  & 58. \textbf{BBRQNKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Qd1,Ne1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+59. \textbf{BBRQNKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Qd1,Ne1,Kf1,Rg1,Nh1},padding=0.2ex]  & 60. \textbf{BBRQNNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Bb1,Rc1,Qd1,Ne1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+61. \textbf{BNNBQRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Nc1,Bd1,Qe1,Rf1,Kg1,Rh1},padding=0.2ex]  & 62. \textbf{BNNBRKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Nc1,Bd1,Re1,Kf1,Qg1,Rh1},padding=0.2ex]  \\\hline
+63. \textbf{BNNBRKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Nc1,Bd1,Re1,Kf1,Rg1,Qh1},padding=0.2ex]  & 64. \textbf{BNNBRQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Nc1,Bd1,Re1,Qf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+65. \textbf{BNNQRBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Nc1,Qd1,Re1,Bf1,Kg1,Rh1},padding=0.2ex]  & 66. \textbf{BNNQRKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Nc1,Qd1,Re1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+67. \textbf{BNNRKBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Nc1,Rd1,Ke1,Bf1,Qg1,Rh1},padding=0.2ex]  & 68. \textbf{BNNRKBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Nc1,Rd1,Ke1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+69. \textbf{BNNRKQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Nc1,Rd1,Ke1,Qf1,Rg1,Bh1},padding=0.2ex]  & 70. \textbf{BNNRKRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Nc1,Rd1,Ke1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+71. \textbf{BNNRQBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Nc1,Rd1,Qe1,Bf1,Kg1,Rh1},padding=0.2ex]  & 72. \textbf{BNNRQKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Nc1,Rd1,Qe1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+73. \textbf{BNQBNRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Qc1,Bd1,Ne1,Rf1,Kg1,Rh1},padding=0.2ex]  & 74. \textbf{BNQBRKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Qc1,Bd1,Re1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+75. \textbf{BNQBRKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Qc1,Bd1,Re1,Kf1,Rg1,Nh1},padding=0.2ex]  & 76. \textbf{BNQBRNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Qc1,Bd1,Re1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+77. \textbf{BNQNRBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Qc1,Nd1,Re1,Bf1,Kg1,Rh1},padding=0.2ex]  & 78. \textbf{BNQNRKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Qc1,Nd1,Re1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+79. \textbf{BNQRKBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Qc1,Rd1,Ke1,Bf1,Ng1,Rh1},padding=0.2ex]  & 80. \textbf{BNQRKBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Qc1,Rd1,Ke1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+81. \textbf{BNQRKNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Qc1,Rd1,Ke1,Nf1,Rg1,Bh1},padding=0.2ex]  & 82. \textbf{BNQRKRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Qc1,Rd1,Ke1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+83. \textbf{BNQRNBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Qc1,Rd1,Ne1,Bf1,Kg1,Rh1},padding=0.2ex]  & 84. \textbf{BNQRNKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Qc1,Rd1,Ne1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+85. \textbf{BNRBKNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Bd1,Ke1,Nf1,Qg1,Rh1},padding=0.2ex]  & 86. \textbf{BNRBKNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Bd1,Ke1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+87. \textbf{BNRBKQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Bd1,Ke1,Qf1,Ng1,Rh1},padding=0.2ex]  & 88. \textbf{BNRBKQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Bd1,Ke1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+89. \textbf{BNRBKRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Bd1,Ke1,Rf1,Ng1,Qh1},padding=0.2ex]  & 90. \textbf{BNRBKRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Bd1,Ke1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+91. \textbf{BNRBNKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Bd1,Ne1,Kf1,Qg1,Rh1},padding=0.2ex]  & 92. \textbf{BNRBNKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Bd1,Ne1,Kf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+93. \textbf{BNRBNQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Bd1,Ne1,Qf1,Kg1,Rh1},padding=0.2ex]  & 94. \textbf{BNRBQKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Bd1,Qe1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+95. \textbf{BNRBQKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Bd1,Qe1,Kf1,Rg1,Nh1},padding=0.2ex]  & 96. \textbf{BNRBQNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Bd1,Qe1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+97. \textbf{BNRKNBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Kd1,Ne1,Bf1,Qg1,Rh1},padding=0.2ex]  & 98. \textbf{BNRKNBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Kd1,Ne1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+99. \textbf{BNRKNQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Kd1,Ne1,Qf1,Rg1,Bh1},padding=0.2ex]  & 100. \textbf{BNRKNRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Kd1,Ne1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+101. \textbf{BNRKQBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Kd1,Qe1,Bf1,Ng1,Rh1},padding=0.2ex]  & 102. \textbf{BNRKQBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Kd1,Qe1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+103. \textbf{BNRKQNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Kd1,Qe1,Nf1,Rg1,Bh1},padding=0.2ex]  & 104. \textbf{BNRKQRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Kd1,Qe1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+105. \textbf{BNRKRBNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Kd1,Re1,Bf1,Ng1,Qh1},padding=0.2ex]  & 106. \textbf{BNRKRBQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Kd1,Re1,Bf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+107. \textbf{BNRKRNQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Kd1,Re1,Nf1,Qg1,Bh1},padding=0.2ex]  & 108. \textbf{BNRKRQNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Kd1,Re1,Qf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+109. \textbf{BNRNKBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Nd1,Ke1,Bf1,Qg1,Rh1},padding=0.2ex]  & 110. \textbf{BNRNKBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Nd1,Ke1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+111. \textbf{BNRNKQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Nd1,Ke1,Qf1,Rg1,Bh1},padding=0.2ex]  & 112. \textbf{BNRNKRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Nd1,Ke1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+113. \textbf{BNRNQBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Nd1,Qe1,Bf1,Kg1,Rh1},padding=0.2ex]  & 114. \textbf{BNRNQKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Nd1,Qe1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+115. \textbf{BNRQKBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Qd1,Ke1,Bf1,Ng1,Rh1},padding=0.2ex]  & 116. \textbf{BNRQKBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Qd1,Ke1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+117. \textbf{BNRQKNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Qd1,Ke1,Nf1,Rg1,Bh1},padding=0.2ex]  & 118. \textbf{BNRQKRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Qd1,Ke1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+119. \textbf{BNRQNBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Qd1,Ne1,Bf1,Kg1,Rh1},padding=0.2ex]  & 120. \textbf{BNRQNKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Nb1,Rc1,Qd1,Ne1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+121. \textbf{BQNBNRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Nc1,Bd1,Ne1,Rf1,Kg1,Rh1},padding=0.2ex]  & 122. \textbf{BQNBRKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Nc1,Bd1,Re1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+123. \textbf{BQNBRKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Nc1,Bd1,Re1,Kf1,Rg1,Nh1},padding=0.2ex]  & 124. \textbf{BQNBRNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Nc1,Bd1,Re1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+125. \textbf{BQNNRBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Nc1,Nd1,Re1,Bf1,Kg1,Rh1},padding=0.2ex]  & 126. \textbf{BQNNRKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Nc1,Nd1,Re1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+127. \textbf{BQNRKBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Nc1,Rd1,Ke1,Bf1,Ng1,Rh1},padding=0.2ex]  & 128. \textbf{BQNRKBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Nc1,Rd1,Ke1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+129. \textbf{BQNRKNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Nc1,Rd1,Ke1,Nf1,Rg1,Bh1},padding=0.2ex]  & 130. \textbf{BQNRKRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Nc1,Rd1,Ke1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+131. \textbf{BQNRNBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Nc1,Rd1,Ne1,Bf1,Kg1,Rh1},padding=0.2ex]  & 132. \textbf{BQNRNKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Nc1,Rd1,Ne1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+133. \textbf{BQRBKNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Bd1,Ke1,Nf1,Ng1,Rh1},padding=0.2ex]  & 134. \textbf{BQRBKNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Bd1,Ke1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+135. \textbf{BQRBKRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Bd1,Ke1,Rf1,Ng1,Nh1},padding=0.2ex]  & 136. \textbf{BQRBNKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Bd1,Ne1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+137. \textbf{BQRBNKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Bd1,Ne1,Kf1,Rg1,Nh1},padding=0.2ex]  & 138. \textbf{BQRBNNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Bd1,Ne1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+139. \textbf{BQRKNBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Kd1,Ne1,Bf1,Ng1,Rh1},padding=0.2ex]  & 140. \textbf{BQRKNBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Kd1,Ne1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+141. \textbf{BQRKNNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Kd1,Ne1,Nf1,Rg1,Bh1},padding=0.2ex]  & 142. \textbf{BQRKNRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Kd1,Ne1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+143. \textbf{BQRKRBNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Kd1,Re1,Bf1,Ng1,Nh1},padding=0.2ex]  & 144. \textbf{BQRKRNNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Kd1,Re1,Nf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+145. \textbf{BQRNKBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Nd1,Ke1,Bf1,Ng1,Rh1},padding=0.2ex]  & 146. \textbf{BQRNKBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Nd1,Ke1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+147. \textbf{BQRNKNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Nd1,Ke1,Nf1,Rg1,Bh1},padding=0.2ex]  & 148. \textbf{BQRNKRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Nd1,Ke1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+149. \textbf{BQRNNBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Nd1,Ne1,Bf1,Kg1,Rh1},padding=0.2ex]  & 150. \textbf{BQRNNKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Qb1,Rc1,Nd1,Ne1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+151. \textbf{BRKBNNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Bd1,Ne1,Nf1,Qg1,Rh1},padding=0.2ex]  & 152. \textbf{BRKBNNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Bd1,Ne1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+153. \textbf{BRKBNQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Bd1,Ne1,Qf1,Ng1,Rh1},padding=0.2ex]  & 154. \textbf{BRKBNQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Bd1,Ne1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+155. \textbf{BRKBNRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Bd1,Ne1,Rf1,Ng1,Qh1},padding=0.2ex]  & 156. \textbf{BRKBNRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Bd1,Ne1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+157. \textbf{BRKBQNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Bd1,Qe1,Nf1,Ng1,Rh1},padding=0.2ex]  & 158. \textbf{BRKBQNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Bd1,Qe1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+159. \textbf{BRKBQRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Bd1,Qe1,Rf1,Ng1,Nh1},padding=0.2ex]  & 160. \textbf{BRKBRNNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Bd1,Re1,Nf1,Ng1,Qh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+161. \textbf{BRKBRNQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Bd1,Re1,Nf1,Qg1,Nh1},padding=0.2ex]  & 162. \textbf{BRKBRQNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Bd1,Re1,Qf1,Ng1,Nh1},padding=0.2ex]  \\\hline
+163. \textbf{BRKNNBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Nd1,Ne1,Bf1,Qg1,Rh1},padding=0.2ex]  & 164. \textbf{BRKNNBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Nd1,Ne1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+165. \textbf{BRKNNQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Nd1,Ne1,Qf1,Rg1,Bh1},padding=0.2ex]  & 166. \textbf{BRKNNRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Nd1,Ne1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+167. \textbf{BRKNQBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Nd1,Qe1,Bf1,Ng1,Rh1},padding=0.2ex]  & 168. \textbf{BRKNQBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Nd1,Qe1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+169. \textbf{BRKNQNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Nd1,Qe1,Nf1,Rg1,Bh1},padding=0.2ex]  & 170. \textbf{BRKNQRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Nd1,Qe1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+171. \textbf{BRKNRBNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Nd1,Re1,Bf1,Ng1,Qh1},padding=0.2ex]  & 172. \textbf{BRKNRBQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Nd1,Re1,Bf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+173. \textbf{BRKNRNQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Nd1,Re1,Nf1,Qg1,Bh1},padding=0.2ex]  & 174. \textbf{BRKNRQNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Nd1,Re1,Qf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+175. \textbf{BRKQNBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Qd1,Ne1,Bf1,Ng1,Rh1},padding=0.2ex]  & 176. \textbf{BRKQNBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Qd1,Ne1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+177. \textbf{BRKQNNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Qd1,Ne1,Nf1,Rg1,Bh1},padding=0.2ex]  & 178. \textbf{BRKQNRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Qd1,Ne1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+179. \textbf{BRKQRBNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Qd1,Re1,Bf1,Ng1,Nh1},padding=0.2ex]  & 180. \textbf{BRKQRNNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Qd1,Re1,Nf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+181. \textbf{BRKRNBNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Rd1,Ne1,Bf1,Ng1,Qh1},padding=0.2ex]  & 182. \textbf{BRKRNBQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Rd1,Ne1,Bf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+183. \textbf{BRKRNNQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Rd1,Ne1,Nf1,Qg1,Bh1},padding=0.2ex]  & 184. \textbf{BRKRNQNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Rd1,Ne1,Qf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+185. \textbf{BRKRQBNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Rd1,Qe1,Bf1,Ng1,Nh1},padding=0.2ex]  & 186. \textbf{BRKRQNNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Kc1,Rd1,Qe1,Nf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+187. \textbf{BRNBKNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Bd1,Ke1,Nf1,Qg1,Rh1},padding=0.2ex]  & 188. \textbf{BRNBKNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Bd1,Ke1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+189. \textbf{BRNBKQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Bd1,Ke1,Qf1,Ng1,Rh1},padding=0.2ex]  & 190. \textbf{BRNBKQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Bd1,Ke1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+191. \textbf{BRNBKRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Bd1,Ke1,Rf1,Ng1,Qh1},padding=0.2ex]  & 192. \textbf{BRNBKRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Bd1,Ke1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+193. \textbf{BRNBNKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Bd1,Ne1,Kf1,Qg1,Rh1},padding=0.2ex]  & 194. \textbf{BRNBNKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Bd1,Ne1,Kf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+195. \textbf{BRNBNQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Bd1,Ne1,Qf1,Kg1,Rh1},padding=0.2ex]  & 196. \textbf{BRNBQKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Bd1,Qe1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+197. \textbf{BRNBQKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Bd1,Qe1,Kf1,Rg1,Nh1},padding=0.2ex]  & 198. \textbf{BRNBQNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Bd1,Qe1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+199. \textbf{BRNKNBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Kd1,Ne1,Bf1,Qg1,Rh1},padding=0.2ex]  & 200. \textbf{BRNKNBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Kd1,Ne1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+201. \textbf{BRNKNQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Kd1,Ne1,Qf1,Rg1,Bh1},padding=0.2ex]  & 202. \textbf{BRNKNRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Kd1,Ne1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+203. \textbf{BRNKQBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Kd1,Qe1,Bf1,Ng1,Rh1},padding=0.2ex]  & 204. \textbf{BRNKQBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Kd1,Qe1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+205. \textbf{BRNKQNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Kd1,Qe1,Nf1,Rg1,Bh1},padding=0.2ex]  & 206. \textbf{BRNKQRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Kd1,Qe1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+207. \textbf{BRNKRBNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Kd1,Re1,Bf1,Ng1,Qh1},padding=0.2ex]  & 208. \textbf{BRNKRBQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Kd1,Re1,Bf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+209. \textbf{BRNKRNQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Kd1,Re1,Nf1,Qg1,Bh1},padding=0.2ex]  & 210. \textbf{BRNKRQNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Kd1,Re1,Qf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+211. \textbf{BRNNKBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Nd1,Ke1,Bf1,Qg1,Rh1},padding=0.2ex]  & 212. \textbf{BRNNKBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Nd1,Ke1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+213. \textbf{BRNNKQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Nd1,Ke1,Qf1,Rg1,Bh1},padding=0.2ex]  & 214. \textbf{BRNNKRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Nd1,Ke1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+215. \textbf{BRNNQBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Nd1,Qe1,Bf1,Kg1,Rh1},padding=0.2ex]  & 216. \textbf{BRNNQKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Nd1,Qe1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+217. \textbf{BRNQKBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Qd1,Ke1,Bf1,Ng1,Rh1},padding=0.2ex]  & 218. \textbf{BRNQKBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Qd1,Ke1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+219. \textbf{BRNQKNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Qd1,Ke1,Nf1,Rg1,Bh1},padding=0.2ex]  & 220. \textbf{BRNQKRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Qd1,Ke1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+221. \textbf{BRNQNBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Qd1,Ne1,Bf1,Kg1,Rh1},padding=0.2ex]  & 222. \textbf{BRNQNKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Nc1,Qd1,Ne1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+223. \textbf{BRQBKNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Bd1,Ke1,Nf1,Ng1,Rh1},padding=0.2ex]  & 224. \textbf{BRQBKNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Bd1,Ke1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+225. \textbf{BRQBKRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Bd1,Ke1,Rf1,Ng1,Nh1},padding=0.2ex]  & 226. \textbf{BRQBNKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Bd1,Ne1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+227. \textbf{BRQBNKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Bd1,Ne1,Kf1,Rg1,Nh1},padding=0.2ex]  & 228. \textbf{BRQBNNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Bd1,Ne1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+229. \textbf{BRQKNBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Kd1,Ne1,Bf1,Ng1,Rh1},padding=0.2ex]  & 230. \textbf{BRQKNBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Kd1,Ne1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+231. \textbf{BRQKNNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Kd1,Ne1,Nf1,Rg1,Bh1},padding=0.2ex]  & 232. \textbf{BRQKNRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Kd1,Ne1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+233. \textbf{BRQKRBNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Kd1,Re1,Bf1,Ng1,Nh1},padding=0.2ex]  & 234. \textbf{BRQKRNNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Kd1,Re1,Nf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+235. \textbf{BRQNKBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Nd1,Ke1,Bf1,Ng1,Rh1},padding=0.2ex]  & 236. \textbf{BRQNKBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Nd1,Ke1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+237. \textbf{BRQNKNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Nd1,Ke1,Nf1,Rg1,Bh1},padding=0.2ex]  & 238. \textbf{BRQNKRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Nd1,Ke1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+239. \textbf{BRQNNBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Nd1,Ne1,Bf1,Kg1,Rh1},padding=0.2ex]  & 240. \textbf{BRQNNKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ba1,Rb1,Qc1,Nd1,Ne1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+241. \textbf{NBBNQRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Nd1,Qe1,Rf1,Kg1,Rh1},padding=0.2ex]  & 242. \textbf{NBBNRKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Nd1,Re1,Kf1,Qg1,Rh1},padding=0.2ex]  \\\hline
+243. \textbf{NBBNRKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Nd1,Re1,Kf1,Rg1,Qh1},padding=0.2ex]  & 244. \textbf{NBBNRQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Nd1,Re1,Qf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+245. \textbf{NBBQNRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Qd1,Ne1,Rf1,Kg1,Rh1},padding=0.2ex]  & 246. \textbf{NBBQRKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Qd1,Re1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+247. \textbf{NBBQRKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Qd1,Re1,Kf1,Rg1,Nh1},padding=0.2ex]  & 248. \textbf{NBBQRNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Qd1,Re1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+249. \textbf{NBBRKNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Rd1,Ke1,Nf1,Qg1,Rh1},padding=0.2ex]  & 250. \textbf{NBBRKNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Rd1,Ke1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+251. \textbf{NBBRKQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Rd1,Ke1,Qf1,Ng1,Rh1},padding=0.2ex]  & 252. \textbf{NBBRKQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Rd1,Ke1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+253. \textbf{NBBRKRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Rd1,Ke1,Rf1,Ng1,Qh1},padding=0.2ex]  & 254. \textbf{NBBRKRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Rd1,Ke1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+255. \textbf{NBBRNKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Rd1,Ne1,Kf1,Qg1,Rh1},padding=0.2ex]  & 256. \textbf{NBBRNKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Rd1,Ne1,Kf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+257. \textbf{NBBRNQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Rd1,Ne1,Qf1,Kg1,Rh1},padding=0.2ex]  & 258. \textbf{NBBRQKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Rd1,Qe1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+259. \textbf{NBBRQKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Rd1,Qe1,Kf1,Rg1,Nh1},padding=0.2ex]  & 260. \textbf{NBBRQNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Bc1,Rd1,Qe1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+261. \textbf{NBNQBRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Nc1,Qd1,Be1,Rf1,Kg1,Rh1},padding=0.2ex]  & 262. \textbf{NBNQRKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Nc1,Qd1,Re1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+263. \textbf{NBNRBKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Nc1,Rd1,Be1,Kf1,Qg1,Rh1},padding=0.2ex]  & 264. \textbf{NBNRBKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Nc1,Rd1,Be1,Kf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+265. \textbf{NBNRBQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Nc1,Rd1,Be1,Qf1,Kg1,Rh1},padding=0.2ex]  & 266. \textbf{NBNRKQBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Nc1,Rd1,Ke1,Qf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+267. \textbf{NBNRKRBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Nc1,Rd1,Ke1,Rf1,Bg1,Qh1},padding=0.2ex]  & 268. \textbf{NBNRQKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Nc1,Rd1,Qe1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+269. \textbf{NBQNBRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Qc1,Nd1,Be1,Rf1,Kg1,Rh1},padding=0.2ex]  & 270. \textbf{NBQNRKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Qc1,Nd1,Re1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+271. \textbf{NBQRBKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Qc1,Rd1,Be1,Kf1,Ng1,Rh1},padding=0.2ex]  & 272. \textbf{NBQRBKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Qc1,Rd1,Be1,Kf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+273. \textbf{NBQRBNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Qc1,Rd1,Be1,Nf1,Kg1,Rh1},padding=0.2ex]  & 274. \textbf{NBQRKNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Qc1,Rd1,Ke1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+275. \textbf{NBQRKRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Qc1,Rd1,Ke1,Rf1,Bg1,Nh1},padding=0.2ex]  & 276. \textbf{NBQRNKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Qc1,Rd1,Ne1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+277. \textbf{NBRKBNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Kd1,Be1,Nf1,Qg1,Rh1},padding=0.2ex]  & 278. \textbf{NBRKBNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Kd1,Be1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+279. \textbf{NBRKBQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Kd1,Be1,Qf1,Ng1,Rh1},padding=0.2ex]  & 280. \textbf{NBRKBQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Kd1,Be1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+281. \textbf{NBRKBRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Kd1,Be1,Rf1,Ng1,Qh1},padding=0.2ex]  & 282. \textbf{NBRKBRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Kd1,Be1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+283. \textbf{NBRKNQBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Kd1,Ne1,Qf1,Bg1,Rh1},padding=0.2ex]  & 284. \textbf{NBRKNRBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Kd1,Ne1,Rf1,Bg1,Qh1},padding=0.2ex]  \\\hline
+285. \textbf{NBRKQNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Kd1,Qe1,Nf1,Bg1,Rh1},padding=0.2ex]  & 286. \textbf{NBRKQRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Kd1,Qe1,Rf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+287. \textbf{NBRKRNBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Kd1,Re1,Nf1,Bg1,Qh1},padding=0.2ex]  & 288. \textbf{NBRKRQBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Kd1,Re1,Qf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+289. \textbf{NBRNBKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Nd1,Be1,Kf1,Qg1,Rh1},padding=0.2ex]  & 290. \textbf{NBRNBKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Nd1,Be1,Kf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+291. \textbf{NBRNBQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Nd1,Be1,Qf1,Kg1,Rh1},padding=0.2ex]  & 292. \textbf{NBRNKQBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Nd1,Ke1,Qf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+293. \textbf{NBRNKRBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Nd1,Ke1,Rf1,Bg1,Qh1},padding=0.2ex]  & 294. \textbf{NBRNQKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Nd1,Qe1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+295. \textbf{NBRQBKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Qd1,Be1,Kf1,Ng1,Rh1},padding=0.2ex]  & 296. \textbf{NBRQBKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Qd1,Be1,Kf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+297. \textbf{NBRQBNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Qd1,Be1,Nf1,Kg1,Rh1},padding=0.2ex]  & 298. \textbf{NBRQKNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Qd1,Ke1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+299. \textbf{NBRQKRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Qd1,Ke1,Rf1,Bg1,Nh1},padding=0.2ex]  & 300. \textbf{NBRQNKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Bb1,Rc1,Qd1,Ne1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+301. \textbf{NNBBQRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Bc1,Bd1,Qe1,Rf1,Kg1,Rh1},padding=0.2ex]  & 302. \textbf{NNBBRKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Bc1,Bd1,Re1,Kf1,Qg1,Rh1},padding=0.2ex]  \\\hline
+303. \textbf{NNBBRKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Bc1,Bd1,Re1,Kf1,Rg1,Qh1},padding=0.2ex]  & 304. \textbf{NNBBRQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Bc1,Bd1,Re1,Qf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+305. \textbf{NNBQRBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Bc1,Qd1,Re1,Bf1,Kg1,Rh1},padding=0.2ex]  & 306. \textbf{NNBQRKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Bc1,Qd1,Re1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+307. \textbf{NNBRKBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Bc1,Rd1,Ke1,Bf1,Qg1,Rh1},padding=0.2ex]  & 308. \textbf{NNBRKBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Bc1,Rd1,Ke1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+309. \textbf{NNBRKQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Bc1,Rd1,Ke1,Qf1,Rg1,Bh1},padding=0.2ex]  & 310. \textbf{NNBRKRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Bc1,Rd1,Ke1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+311. \textbf{NNBRQBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Bc1,Rd1,Qe1,Bf1,Kg1,Rh1},padding=0.2ex]  & 312. \textbf{NNBRQKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Bc1,Rd1,Qe1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+313. \textbf{NNQBBRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Qc1,Bd1,Be1,Rf1,Kg1,Rh1},padding=0.2ex]  & 314. \textbf{NNQBRKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Qc1,Bd1,Re1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+315. \textbf{NNQRBBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Qc1,Rd1,Be1,Bf1,Kg1,Rh1},padding=0.2ex]  & 316. \textbf{NNQRBKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Qc1,Rd1,Be1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+317. \textbf{NNQRKBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Qc1,Rd1,Ke1,Bf1,Bg1,Rh1},padding=0.2ex]  & 318. \textbf{NNQRKRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Qc1,Rd1,Ke1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+319. \textbf{NNRBBKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Bd1,Be1,Kf1,Qg1,Rh1},padding=0.2ex]  & 320. \textbf{NNRBBKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Bd1,Be1,Kf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+321. \textbf{NNRBBQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Bd1,Be1,Qf1,Kg1,Rh1},padding=0.2ex]  & 322. \textbf{NNRBKQBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Bd1,Ke1,Qf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+323. \textbf{NNRBKRBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Bd1,Ke1,Rf1,Bg1,Qh1},padding=0.2ex]  & 324. \textbf{NNRBQKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Bd1,Qe1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+325. \textbf{NNRKBBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Kd1,Be1,Bf1,Qg1,Rh1},padding=0.2ex]  & 326. \textbf{NNRKBBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Kd1,Be1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+327. \textbf{NNRKBQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Kd1,Be1,Qf1,Rg1,Bh1},padding=0.2ex]  & 328. \textbf{NNRKBRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Kd1,Be1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+329. \textbf{NNRKQBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Kd1,Qe1,Bf1,Bg1,Rh1},padding=0.2ex]  & 330. \textbf{NNRKQRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Kd1,Qe1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+331. \textbf{NNRKRBBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Kd1,Re1,Bf1,Bg1,Qh1},padding=0.2ex]  & 332. \textbf{NNRKRQBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Kd1,Re1,Qf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+333. \textbf{NNRQBBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Qd1,Be1,Bf1,Kg1,Rh1},padding=0.2ex]  & 334. \textbf{NNRQBKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Qd1,Be1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+335. \textbf{NNRQKBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Qd1,Ke1,Bf1,Bg1,Rh1},padding=0.2ex]  & 336. \textbf{NNRQKRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Nb1,Rc1,Qd1,Ke1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+337. \textbf{NQBBNRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Bc1,Bd1,Ne1,Rf1,Kg1,Rh1},padding=0.2ex]  & 338. \textbf{NQBBRKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Bc1,Bd1,Re1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+339. \textbf{NQBBRKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Bc1,Bd1,Re1,Kf1,Rg1,Nh1},padding=0.2ex]  & 340. \textbf{NQBBRNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Bc1,Bd1,Re1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+341. \textbf{NQBNRBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Bc1,Nd1,Re1,Bf1,Kg1,Rh1},padding=0.2ex]  & 342. \textbf{NQBNRKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Bc1,Nd1,Re1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+343. \textbf{NQBRKBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Bc1,Rd1,Ke1,Bf1,Ng1,Rh1},padding=0.2ex]  & 344. \textbf{NQBRKBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Bc1,Rd1,Ke1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+345. \textbf{NQBRKNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Bc1,Rd1,Ke1,Nf1,Rg1,Bh1},padding=0.2ex]  & 346. \textbf{NQBRKRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Bc1,Rd1,Ke1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+347. \textbf{NQBRNBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Bc1,Rd1,Ne1,Bf1,Kg1,Rh1},padding=0.2ex]  & 348. \textbf{NQBRNKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Bc1,Rd1,Ne1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+349. \textbf{NQNBBRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Nc1,Bd1,Be1,Rf1,Kg1,Rh1},padding=0.2ex]  & 350. \textbf{NQNBRKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Nc1,Bd1,Re1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+351. \textbf{NQNRBBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Nc1,Rd1,Be1,Bf1,Kg1,Rh1},padding=0.2ex]  & 352. \textbf{NQNRBKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Nc1,Rd1,Be1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+353. \textbf{NQNRKBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Nc1,Rd1,Ke1,Bf1,Bg1,Rh1},padding=0.2ex]  & 354. \textbf{NQNRKRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Nc1,Rd1,Ke1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+355. \textbf{NQRBBKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Bd1,Be1,Kf1,Ng1,Rh1},padding=0.2ex]  & 356. \textbf{NQRBBKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Bd1,Be1,Kf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+357. \textbf{NQRBBNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Bd1,Be1,Nf1,Kg1,Rh1},padding=0.2ex]  & 358. \textbf{NQRBKNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Bd1,Ke1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+359. \textbf{NQRBKRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Bd1,Ke1,Rf1,Bg1,Nh1},padding=0.2ex]  & 360. \textbf{NQRBNKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Bd1,Ne1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+361. \textbf{NQRKBBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Kd1,Be1,Bf1,Ng1,Rh1},padding=0.2ex]  & 362. \textbf{NQRKBBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Kd1,Be1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+363. \textbf{NQRKBNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Kd1,Be1,Nf1,Rg1,Bh1},padding=0.2ex]  & 364. \textbf{NQRKBRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Kd1,Be1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+365. \textbf{NQRKNBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Kd1,Ne1,Bf1,Bg1,Rh1},padding=0.2ex]  & 366. \textbf{NQRKNRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Kd1,Ne1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+367. \textbf{NQRKRBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Kd1,Re1,Bf1,Bg1,Nh1},padding=0.2ex]  & 368. \textbf{NQRKRNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Kd1,Re1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+369. \textbf{NQRNBBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Nd1,Be1,Bf1,Kg1,Rh1},padding=0.2ex]  & 370. \textbf{NQRNBKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Nd1,Be1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+371. \textbf{NQRNKBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Nd1,Ke1,Bf1,Bg1,Rh1},padding=0.2ex]  & 372. \textbf{NQRNKRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Qb1,Rc1,Nd1,Ke1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+373. \textbf{NRBBKNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Bd1,Ke1,Nf1,Qg1,Rh1},padding=0.2ex]  & 374. \textbf{NRBBKNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Bd1,Ke1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+375. \textbf{NRBBKQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Bd1,Ke1,Qf1,Ng1,Rh1},padding=0.2ex]  & 376. \textbf{NRBBKQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Bd1,Ke1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+377. \textbf{NRBBKRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Bd1,Ke1,Rf1,Ng1,Qh1},padding=0.2ex]  & 378. \textbf{NRBBKRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Bd1,Ke1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+379. \textbf{NRBBNKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Bd1,Ne1,Kf1,Qg1,Rh1},padding=0.2ex]  & 380. \textbf{NRBBNKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Bd1,Ne1,Kf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+381. \textbf{NRBBNQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Bd1,Ne1,Qf1,Kg1,Rh1},padding=0.2ex]  & 382. \textbf{NRBBQKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Bd1,Qe1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+383. \textbf{NRBBQKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Bd1,Qe1,Kf1,Rg1,Nh1},padding=0.2ex]  & 384. \textbf{NRBBQNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Bd1,Qe1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+385. \textbf{NRBKNBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Kd1,Ne1,Bf1,Qg1,Rh1},padding=0.2ex]  & 386. \textbf{NRBKNBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Kd1,Ne1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+387. \textbf{NRBKNQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Kd1,Ne1,Qf1,Rg1,Bh1},padding=0.2ex]  & 388. \textbf{NRBKNRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Kd1,Ne1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+389. \textbf{NRBKQBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Kd1,Qe1,Bf1,Ng1,Rh1},padding=0.2ex]  & 390. \textbf{NRBKQBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Kd1,Qe1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+391. \textbf{NRBKQNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Kd1,Qe1,Nf1,Rg1,Bh1},padding=0.2ex]  & 392. \textbf{NRBKQRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Kd1,Qe1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+393. \textbf{NRBKRBNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Kd1,Re1,Bf1,Ng1,Qh1},padding=0.2ex]  & 394. \textbf{NRBKRBQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Kd1,Re1,Bf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+395. \textbf{NRBKRNQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Kd1,Re1,Nf1,Qg1,Bh1},padding=0.2ex]  & 396. \textbf{NRBKRQNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Kd1,Re1,Qf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+397. \textbf{NRBNKBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Nd1,Ke1,Bf1,Qg1,Rh1},padding=0.2ex]  & 398. \textbf{NRBNKBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Nd1,Ke1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+399. \textbf{NRBNKQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Nd1,Ke1,Qf1,Rg1,Bh1},padding=0.2ex]  & 400. \textbf{NRBNKRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Nd1,Ke1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+401. \textbf{NRBNQBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Nd1,Qe1,Bf1,Kg1,Rh1},padding=0.2ex]  & 402. \textbf{NRBNQKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Nd1,Qe1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+403. \textbf{NRBQKBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Qd1,Ke1,Bf1,Ng1,Rh1},padding=0.2ex]  & 404. \textbf{NRBQKBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Qd1,Ke1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+405. \textbf{NRBQKNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Qd1,Ke1,Nf1,Rg1,Bh1},padding=0.2ex]  & 406. \textbf{NRBQKRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Qd1,Ke1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+407. \textbf{NRBQNBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Qd1,Ne1,Bf1,Kg1,Rh1},padding=0.2ex]  & 408. \textbf{NRBQNKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Bc1,Qd1,Ne1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+409. \textbf{NRKBBNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Bd1,Be1,Nf1,Qg1,Rh1},padding=0.2ex]  & 410. \textbf{NRKBBNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Bd1,Be1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+411. \textbf{NRKBBQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Bd1,Be1,Qf1,Ng1,Rh1},padding=0.2ex]  & 412. \textbf{NRKBBQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Bd1,Be1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+413. \textbf{NRKBBRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Bd1,Be1,Rf1,Ng1,Qh1},padding=0.2ex]  & 414. \textbf{NRKBBRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Bd1,Be1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+415. \textbf{NRKBNQBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Bd1,Ne1,Qf1,Bg1,Rh1},padding=0.2ex]  & 416. \textbf{NRKBNRBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Bd1,Ne1,Rf1,Bg1,Qh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+417. \textbf{NRKBQNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Bd1,Qe1,Nf1,Bg1,Rh1},padding=0.2ex]  & 418. \textbf{NRKBQRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Bd1,Qe1,Rf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+419. \textbf{NRKBRNBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Bd1,Re1,Nf1,Bg1,Qh1},padding=0.2ex]  & 420. \textbf{NRKBRQBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Bd1,Re1,Qf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+421. \textbf{NRKNBBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Nd1,Be1,Bf1,Qg1,Rh1},padding=0.2ex]  & 422. \textbf{NRKNBBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Nd1,Be1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+423. \textbf{NRKNBQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Nd1,Be1,Qf1,Rg1,Bh1},padding=0.2ex]  & 424. \textbf{NRKNBRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Nd1,Be1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+425. \textbf{NRKNQBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Nd1,Qe1,Bf1,Bg1,Rh1},padding=0.2ex]  & 426. \textbf{NRKNQRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Nd1,Qe1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+427. \textbf{NRKNRBBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Nd1,Re1,Bf1,Bg1,Qh1},padding=0.2ex]  & 428. \textbf{NRKNRQBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Nd1,Re1,Qf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+429. \textbf{NRKQBBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Qd1,Be1,Bf1,Ng1,Rh1},padding=0.2ex]  & 430. \textbf{NRKQBBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Qd1,Be1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+431. \textbf{NRKQBNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Qd1,Be1,Nf1,Rg1,Bh1},padding=0.2ex]  & 432. \textbf{NRKQBRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Qd1,Be1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+433. \textbf{NRKQNBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Qd1,Ne1,Bf1,Bg1,Rh1},padding=0.2ex]  & 434. \textbf{NRKQNRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Qd1,Ne1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+435. \textbf{NRKQRBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Qd1,Re1,Bf1,Bg1,Nh1},padding=0.2ex]  & 436. \textbf{NRKQRNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Qd1,Re1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+437. \textbf{NRKRBBNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Rd1,Be1,Bf1,Ng1,Qh1},padding=0.2ex]  & 438. \textbf{NRKRBBQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Rd1,Be1,Bf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+439. \textbf{NRKRBNQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Rd1,Be1,Nf1,Qg1,Bh1},padding=0.2ex]  & 440. \textbf{NRKRBQNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Rd1,Be1,Qf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+441. \textbf{NRKRNBBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Rd1,Ne1,Bf1,Bg1,Qh1},padding=0.2ex]  & 442. \textbf{NRKRNQBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Rd1,Ne1,Qf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+443. \textbf{NRKRQBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Rd1,Qe1,Bf1,Bg1,Nh1},padding=0.2ex]  & 444. \textbf{NRKRQNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Kc1,Rd1,Qe1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+445. \textbf{NRNBBKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Bd1,Be1,Kf1,Qg1,Rh1},padding=0.2ex]  & 446. \textbf{NRNBBKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Bd1,Be1,Kf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+447. \textbf{NRNBBQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Bd1,Be1,Qf1,Kg1,Rh1},padding=0.2ex]  & 448. \textbf{NRNBKQBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Bd1,Ke1,Qf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+449. \textbf{NRNBKRBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Bd1,Ke1,Rf1,Bg1,Qh1},padding=0.2ex]  & 450. \textbf{NRNBQKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Bd1,Qe1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+451. \textbf{NRNKBBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Kd1,Be1,Bf1,Qg1,Rh1},padding=0.2ex]  & 452. \textbf{NRNKBBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Kd1,Be1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+453. \textbf{NRNKBQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Kd1,Be1,Qf1,Rg1,Bh1},padding=0.2ex]  & 454. \textbf{NRNKBRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Kd1,Be1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+455. \textbf{NRNKQBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Kd1,Qe1,Bf1,Bg1,Rh1},padding=0.2ex]  & 456. \textbf{NRNKQRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Kd1,Qe1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+457. \textbf{NRNKRBBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Kd1,Re1,Bf1,Bg1,Qh1},padding=0.2ex]  & 458. \textbf{NRNKRQBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Kd1,Re1,Qf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+459. \textbf{NRNQBBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Qd1,Be1,Bf1,Kg1,Rh1},padding=0.2ex]  & 460. \textbf{NRNQBKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Qd1,Be1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+461. \textbf{NRNQKBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Qd1,Ke1,Bf1,Bg1,Rh1},padding=0.2ex]  & 462. \textbf{NRNQKRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Nc1,Qd1,Ke1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+463. \textbf{NRQBBKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Bd1,Be1,Kf1,Ng1,Rh1},padding=0.2ex]  & 464. \textbf{NRQBBKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Bd1,Be1,Kf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+465. \textbf{NRQBBNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Bd1,Be1,Nf1,Kg1,Rh1},padding=0.2ex]  & 466. \textbf{NRQBKNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Bd1,Ke1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+467. \textbf{NRQBKRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Bd1,Ke1,Rf1,Bg1,Nh1},padding=0.2ex]  & 468. \textbf{NRQBNKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Bd1,Ne1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+469. \textbf{NRQKBBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Kd1,Be1,Bf1,Ng1,Rh1},padding=0.2ex]  & 470. \textbf{NRQKBBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Kd1,Be1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+471. \textbf{NRQKBNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Kd1,Be1,Nf1,Rg1,Bh1},padding=0.2ex]  & 472. \textbf{NRQKBRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Kd1,Be1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+473. \textbf{NRQKNBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Kd1,Ne1,Bf1,Bg1,Rh1},padding=0.2ex]  & 474. \textbf{NRQKNRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Kd1,Ne1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+475. \textbf{NRQKRBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Kd1,Re1,Bf1,Bg1,Nh1},padding=0.2ex]  & 476. \textbf{NRQKRNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Kd1,Re1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+477. \textbf{NRQNBBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Nd1,Be1,Bf1,Kg1,Rh1},padding=0.2ex]  & 478. \textbf{NRQNBKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Nd1,Be1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+479. \textbf{NRQNKBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Nd1,Ke1,Bf1,Bg1,Rh1},padding=0.2ex]  & 480. \textbf{NRQNKRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Na1,Rb1,Qc1,Nd1,Ke1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+481. \textbf{QBBNNRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Bc1,Nd1,Ne1,Rf1,Kg1,Rh1},padding=0.2ex]  & 482. \textbf{QBBNRKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Bc1,Nd1,Re1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+483. \textbf{QBBNRKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Bc1,Nd1,Re1,Kf1,Rg1,Nh1},padding=0.2ex]  & 484. \textbf{QBBNRNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Bc1,Nd1,Re1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+485. \textbf{QBBRKNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Bc1,Rd1,Ke1,Nf1,Ng1,Rh1},padding=0.2ex]  & 486. \textbf{QBBRKNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Bc1,Rd1,Ke1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+487. \textbf{QBBRKRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Bc1,Rd1,Ke1,Rf1,Ng1,Nh1},padding=0.2ex]  & 488. \textbf{QBBRNKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Bc1,Rd1,Ne1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+489. \textbf{QBBRNKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Bc1,Rd1,Ne1,Kf1,Rg1,Nh1},padding=0.2ex]  & 490. \textbf{QBBRNNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Bc1,Rd1,Ne1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+491. \textbf{QBNNBRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Nc1,Nd1,Be1,Rf1,Kg1,Rh1},padding=0.2ex]  & 492. \textbf{QBNNRKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Nc1,Nd1,Re1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+493. \textbf{QBNRBKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Nc1,Rd1,Be1,Kf1,Ng1,Rh1},padding=0.2ex]  & 494. \textbf{QBNRBKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Nc1,Rd1,Be1,Kf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+495. \textbf{QBNRBNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Nc1,Rd1,Be1,Nf1,Kg1,Rh1},padding=0.2ex]  & 496. \textbf{QBNRKNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Nc1,Rd1,Ke1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+497. \textbf{QBNRKRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Nc1,Rd1,Ke1,Rf1,Bg1,Nh1},padding=0.2ex]  & 498. \textbf{QBNRNKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Nc1,Rd1,Ne1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+499. \textbf{QBRKBNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Rc1,Kd1,Be1,Nf1,Ng1,Rh1},padding=0.2ex]  & 500. \textbf{QBRKBNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Rc1,Kd1,Be1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+501. \textbf{QBRKBRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Rc1,Kd1,Be1,Rf1,Ng1,Nh1},padding=0.2ex]  & 502. \textbf{QBRKNNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Rc1,Kd1,Ne1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+503. \textbf{QBRKNRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Rc1,Kd1,Ne1,Rf1,Bg1,Nh1},padding=0.2ex]  & 504. \textbf{QBRKRNBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Rc1,Kd1,Re1,Nf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+505. \textbf{QBRNBKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Rc1,Nd1,Be1,Kf1,Ng1,Rh1},padding=0.2ex]  & 506. \textbf{QBRNBKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Rc1,Nd1,Be1,Kf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+507. \textbf{QBRNBNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Rc1,Nd1,Be1,Nf1,Kg1,Rh1},padding=0.2ex]  & 508. \textbf{QBRNKNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Rc1,Nd1,Ke1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+509. \textbf{QBRNKRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Rc1,Nd1,Ke1,Rf1,Bg1,Nh1},padding=0.2ex]  & 510. \textbf{QBRNNKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Bb1,Rc1,Nd1,Ne1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+511. \textbf{QNBBNRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Bc1,Bd1,Ne1,Rf1,Kg1,Rh1},padding=0.2ex]  & 512. \textbf{QNBBRKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Bc1,Bd1,Re1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+513. \textbf{QNBBRKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Bc1,Bd1,Re1,Kf1,Rg1,Nh1},padding=0.2ex]  & 514. \textbf{QNBBRNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Bc1,Bd1,Re1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+515. \textbf{QNBNRBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Bc1,Nd1,Re1,Bf1,Kg1,Rh1},padding=0.2ex]  & 516. \textbf{QNBNRKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Bc1,Nd1,Re1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+517. \textbf{QNBRKBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Bc1,Rd1,Ke1,Bf1,Ng1,Rh1},padding=0.2ex]  & 518. \textbf{QNBRKBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Bc1,Rd1,Ke1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+519. \textbf{QNBRKNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Bc1,Rd1,Ke1,Nf1,Rg1,Bh1},padding=0.2ex]  & 520. \textbf{QNBRKRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Bc1,Rd1,Ke1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+521. \textbf{QNBRNBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Bc1,Rd1,Ne1,Bf1,Kg1,Rh1},padding=0.2ex]  & 522. \textbf{QNBRNKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Bc1,Rd1,Ne1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+523. \textbf{QNNBBRKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Nc1,Bd1,Be1,Rf1,Kg1,Rh1},padding=0.2ex]  & 524. \textbf{QNNBRKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Nc1,Bd1,Re1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+525. \textbf{QNNRBBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Nc1,Rd1,Be1,Bf1,Kg1,Rh1},padding=0.2ex]  & 526. \textbf{QNNRBKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Nc1,Rd1,Be1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+527. \textbf{QNNRKBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Nc1,Rd1,Ke1,Bf1,Bg1,Rh1},padding=0.2ex]  & 528. \textbf{QNNRKRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Nc1,Rd1,Ke1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+529. \textbf{QNRBBKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Bd1,Be1,Kf1,Ng1,Rh1},padding=0.2ex]  & 530. \textbf{QNRBBKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Bd1,Be1,Kf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+531. \textbf{QNRBBNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Bd1,Be1,Nf1,Kg1,Rh1},padding=0.2ex]  & 532. \textbf{QNRBKNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Bd1,Ke1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+533. \textbf{QNRBKRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Bd1,Ke1,Rf1,Bg1,Nh1},padding=0.2ex]  & 534. \textbf{QNRBNKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Bd1,Ne1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+535. \textbf{QNRKBBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Kd1,Be1,Bf1,Ng1,Rh1},padding=0.2ex]  & 536. \textbf{QNRKBBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Kd1,Be1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+537. \textbf{QNRKBNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Kd1,Be1,Nf1,Rg1,Bh1},padding=0.2ex]  & 538. \textbf{QNRKBRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Kd1,Be1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+539. \textbf{QNRKNBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Kd1,Ne1,Bf1,Bg1,Rh1},padding=0.2ex]  & 540. \textbf{QNRKNRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Kd1,Ne1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+541. \textbf{QNRKRBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Kd1,Re1,Bf1,Bg1,Nh1},padding=0.2ex]  & 542. \textbf{QNRKRNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Kd1,Re1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+543. \textbf{QNRNBBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Nd1,Be1,Bf1,Kg1,Rh1},padding=0.2ex]  & 544. \textbf{QNRNBKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Nd1,Be1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+545. \textbf{QNRNKBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Nd1,Ke1,Bf1,Bg1,Rh1},padding=0.2ex]  & 546. \textbf{QNRNKRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Nb1,Rc1,Nd1,Ke1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+547. \textbf{QRBBKNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Bd1,Ke1,Nf1,Ng1,Rh1},padding=0.2ex]  & 548. \textbf{QRBBKNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Bd1,Ke1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+549. \textbf{QRBBKRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Bd1,Ke1,Rf1,Ng1,Nh1},padding=0.2ex]  & 550. \textbf{QRBBNKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Bd1,Ne1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+551. \textbf{QRBBNKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Bd1,Ne1,Kf1,Rg1,Nh1},padding=0.2ex]  & 552. \textbf{QRBBNNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Bd1,Ne1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+553. \textbf{QRBKNBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Kd1,Ne1,Bf1,Ng1,Rh1},padding=0.2ex]  & 554. \textbf{QRBKNBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Kd1,Ne1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+555. \textbf{QRBKNNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Kd1,Ne1,Nf1,Rg1,Bh1},padding=0.2ex]  & 556. \textbf{QRBKNRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Kd1,Ne1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+557. \textbf{QRBKRBNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Kd1,Re1,Bf1,Ng1,Nh1},padding=0.2ex]  & 558. \textbf{QRBKRNNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Kd1,Re1,Nf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+559. \textbf{QRBNKBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Nd1,Ke1,Bf1,Ng1,Rh1},padding=0.2ex]  & 560. \textbf{QRBNKBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Nd1,Ke1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+561. \textbf{QRBNKNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Nd1,Ke1,Nf1,Rg1,Bh1},padding=0.2ex]  & 562. \textbf{QRBNKRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Nd1,Ke1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+563. \textbf{QRBNNBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Nd1,Ne1,Bf1,Kg1,Rh1},padding=0.2ex]  & 564. \textbf{QRBNNKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Bc1,Nd1,Ne1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+565. \textbf{QRKBBNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Bd1,Be1,Nf1,Ng1,Rh1},padding=0.2ex]  & 566. \textbf{QRKBBNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Bd1,Be1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+567. \textbf{QRKBBRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Bd1,Be1,Rf1,Ng1,Nh1},padding=0.2ex]  & 568. \textbf{QRKBNNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Bd1,Ne1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+569. \textbf{QRKBNRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Bd1,Ne1,Rf1,Bg1,Nh1},padding=0.2ex]  & 570. \textbf{QRKBRNBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Bd1,Re1,Nf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+571. \textbf{QRKNBBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Nd1,Be1,Bf1,Ng1,Rh1},padding=0.2ex]  & 572. \textbf{QRKNBBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Nd1,Be1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+573. \textbf{QRKNBNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Nd1,Be1,Nf1,Rg1,Bh1},padding=0.2ex]  & 574. \textbf{QRKNBRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Nd1,Be1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+575. \textbf{QRKNNBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Nd1,Ne1,Bf1,Bg1,Rh1},padding=0.2ex]  & 576. \textbf{QRKNNRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Nd1,Ne1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+577. \textbf{QRKNRBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Nd1,Re1,Bf1,Bg1,Nh1},padding=0.2ex]  & 578. \textbf{QRKNRNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Nd1,Re1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+579. \textbf{QRKRBBNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Rd1,Be1,Bf1,Ng1,Nh1},padding=0.2ex]  & 580. \textbf{QRKRBNNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Rd1,Be1,Nf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+581. \textbf{QRKRNBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Rd1,Ne1,Bf1,Bg1,Nh1},padding=0.2ex]  & 582. \textbf{QRKRNNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Kc1,Rd1,Ne1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+583. \textbf{QRNBBKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Bd1,Be1,Kf1,Ng1,Rh1},padding=0.2ex]  & 584. \textbf{QRNBBKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Bd1,Be1,Kf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+585. \textbf{QRNBBNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Bd1,Be1,Nf1,Kg1,Rh1},padding=0.2ex]  & 586. \textbf{QRNBKNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Bd1,Ke1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+587. \textbf{QRNBKRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Bd1,Ke1,Rf1,Bg1,Nh1},padding=0.2ex]  & 588. \textbf{QRNBNKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Bd1,Ne1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+589. \textbf{QRNKBBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Kd1,Be1,Bf1,Ng1,Rh1},padding=0.2ex]  & 590. \textbf{QRNKBBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Kd1,Be1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+591. \textbf{QRNKBNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Kd1,Be1,Nf1,Rg1,Bh1},padding=0.2ex]  & 592. \textbf{QRNKBRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Kd1,Be1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+593. \textbf{QRNKNBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Kd1,Ne1,Bf1,Bg1,Rh1},padding=0.2ex]  & 594. \textbf{QRNKNRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Kd1,Ne1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+595. \textbf{QRNKRBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Kd1,Re1,Bf1,Bg1,Nh1},padding=0.2ex]  & 596. \textbf{QRNKRNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Kd1,Re1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+597. \textbf{QRNNBBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Nd1,Be1,Bf1,Kg1,Rh1},padding=0.2ex]  & 598. \textbf{QRNNBKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Nd1,Be1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+599. \textbf{QRNNKBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Nd1,Ke1,Bf1,Bg1,Rh1},padding=0.2ex]  & 600. \textbf{QRNNKRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Qa1,Rb1,Nc1,Nd1,Ke1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+601. \textbf{RBBKNNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Kd1,Ne1,Nf1,Qg1,Rh1},padding=0.2ex]  & 602. \textbf{RBBKNNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Kd1,Ne1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+603. \textbf{RBBKNQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Kd1,Ne1,Qf1,Ng1,Rh1},padding=0.2ex]  & 604. \textbf{RBBKNQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Kd1,Ne1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+605. \textbf{RBBKNRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Kd1,Ne1,Rf1,Ng1,Qh1},padding=0.2ex]  & 606. \textbf{RBBKNRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Kd1,Ne1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+607. \textbf{RBBKQNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Kd1,Qe1,Nf1,Ng1,Rh1},padding=0.2ex]  & 608. \textbf{RBBKQNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Kd1,Qe1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+609. \textbf{RBBKQRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Kd1,Qe1,Rf1,Ng1,Nh1},padding=0.2ex]  & 610. \textbf{RBBKRNNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Kd1,Re1,Nf1,Ng1,Qh1},padding=0.2ex]  \\\hline
+611. \textbf{RBBKRNQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Kd1,Re1,Nf1,Qg1,Nh1},padding=0.2ex]  & 612. \textbf{RBBKRQNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Kd1,Re1,Qf1,Ng1,Nh1},padding=0.2ex]  \\\hline
+613. \textbf{RBBNKNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Nd1,Ke1,Nf1,Qg1,Rh1},padding=0.2ex]  & 614. \textbf{RBBNKNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Nd1,Ke1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+615. \textbf{RBBNKQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Nd1,Ke1,Qf1,Ng1,Rh1},padding=0.2ex]  & 616. \textbf{RBBNKQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Nd1,Ke1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+617. \textbf{RBBNKRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Nd1,Ke1,Rf1,Ng1,Qh1},padding=0.2ex]  & 618. \textbf{RBBNKRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Nd1,Ke1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+619. \textbf{RBBNNKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Nd1,Ne1,Kf1,Qg1,Rh1},padding=0.2ex]  & 620. \textbf{RBBNNKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Nd1,Ne1,Kf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+621. \textbf{RBBNNQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Nd1,Ne1,Qf1,Kg1,Rh1},padding=0.2ex]  & 622. \textbf{RBBNQKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Nd1,Qe1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+623. \textbf{RBBNQKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Nd1,Qe1,Kf1,Rg1,Nh1},padding=0.2ex]  & 624. \textbf{RBBNQNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Nd1,Qe1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+625. \textbf{RBBQKNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Qd1,Ke1,Nf1,Ng1,Rh1},padding=0.2ex]  & 626. \textbf{RBBQKNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Qd1,Ke1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+627. \textbf{RBBQKRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Qd1,Ke1,Rf1,Ng1,Nh1},padding=0.2ex]  & 628. \textbf{RBBQNKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Qd1,Ne1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+629. \textbf{RBBQNKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Qd1,Ne1,Kf1,Rg1,Nh1},padding=0.2ex]  & 630. \textbf{RBBQNNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Bc1,Qd1,Ne1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+631. \textbf{RBKNBNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Nd1,Be1,Nf1,Qg1,Rh1},padding=0.2ex]  & 632. \textbf{RBKNBNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Nd1,Be1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+633. \textbf{RBKNBQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Nd1,Be1,Qf1,Ng1,Rh1},padding=0.2ex]  & 634. \textbf{RBKNBQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Nd1,Be1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+635. \textbf{RBKNBRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Nd1,Be1,Rf1,Ng1,Qh1},padding=0.2ex]  & 636. \textbf{RBKNBRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Nd1,Be1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+637. \textbf{RBKNNQBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Nd1,Ne1,Qf1,Bg1,Rh1},padding=0.2ex]  & 638. \textbf{RBKNNRBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Nd1,Ne1,Rf1,Bg1,Qh1},padding=0.2ex]  \\\hline
+639. \textbf{RBKNQNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Nd1,Qe1,Nf1,Bg1,Rh1},padding=0.2ex]  & 640. \textbf{RBKNQRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Nd1,Qe1,Rf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+641. \textbf{RBKNRNBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Nd1,Re1,Nf1,Bg1,Qh1},padding=0.2ex]  & 642. \textbf{RBKNRQBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Nd1,Re1,Qf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+643. \textbf{RBKQBNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Qd1,Be1,Nf1,Ng1,Rh1},padding=0.2ex]  & 644. \textbf{RBKQBNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Qd1,Be1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+645. \textbf{RBKQBRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Qd1,Be1,Rf1,Ng1,Nh1},padding=0.2ex]  & 646. \textbf{RBKQNNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Qd1,Ne1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+647. \textbf{RBKQNRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Qd1,Ne1,Rf1,Bg1,Nh1},padding=0.2ex]  & 648. \textbf{RBKQRNBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Qd1,Re1,Nf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+649. \textbf{RBKRBNNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Rd1,Be1,Nf1,Ng1,Qh1},padding=0.2ex]  & 650. \textbf{RBKRBNQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Rd1,Be1,Nf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+651. \textbf{RBKRBQNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Rd1,Be1,Qf1,Ng1,Nh1},padding=0.2ex]  & 652. \textbf{RBKRNNBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Rd1,Ne1,Nf1,Bg1,Qh1},padding=0.2ex]  \\\hline
+653. \textbf{RBKRNQBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Rd1,Ne1,Qf1,Bg1,Nh1},padding=0.2ex]  & 654. \textbf{RBKRQNBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Kc1,Rd1,Qe1,Nf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+655. \textbf{RBNKBNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Kd1,Be1,Nf1,Qg1,Rh1},padding=0.2ex]  & 656. \textbf{RBNKBNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Kd1,Be1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+657. \textbf{RBNKBQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Kd1,Be1,Qf1,Ng1,Rh1},padding=0.2ex]  & 658. \textbf{RBNKBQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Kd1,Be1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+659. \textbf{RBNKBRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Kd1,Be1,Rf1,Ng1,Qh1},padding=0.2ex]  & 660. \textbf{RBNKBRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Kd1,Be1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+661. \textbf{RBNKNQBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Kd1,Ne1,Qf1,Bg1,Rh1},padding=0.2ex]  & 662. \textbf{RBNKNRBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Kd1,Ne1,Rf1,Bg1,Qh1},padding=0.2ex]  \\\hline
+663. \textbf{RBNKQNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Kd1,Qe1,Nf1,Bg1,Rh1},padding=0.2ex]  & 664. \textbf{RBNKQRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Kd1,Qe1,Rf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+665. \textbf{RBNKRNBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Kd1,Re1,Nf1,Bg1,Qh1},padding=0.2ex]  & 666. \textbf{RBNKRQBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Kd1,Re1,Qf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+667. \textbf{RBNNBKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Nd1,Be1,Kf1,Qg1,Rh1},padding=0.2ex]  & 668. \textbf{RBNNBKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Nd1,Be1,Kf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+669. \textbf{RBNNBQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Nd1,Be1,Qf1,Kg1,Rh1},padding=0.2ex]  & 670. \textbf{RBNNKQBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Nd1,Ke1,Qf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+671. \textbf{RBNNKRBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Nd1,Ke1,Rf1,Bg1,Qh1},padding=0.2ex]  & 672. \textbf{RBNNQKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Nd1,Qe1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+673. \textbf{RBNQBKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Qd1,Be1,Kf1,Ng1,Rh1},padding=0.2ex]  & 674. \textbf{RBNQBKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Qd1,Be1,Kf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+675. \textbf{RBNQBNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Qd1,Be1,Nf1,Kg1,Rh1},padding=0.2ex]  & 676. \textbf{RBNQKNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Qd1,Ke1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+677. \textbf{RBNQKRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Qd1,Ke1,Rf1,Bg1,Nh1},padding=0.2ex]  & 678. \textbf{RBNQNKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Nc1,Qd1,Ne1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+679. \textbf{RBQKBNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Qc1,Kd1,Be1,Nf1,Ng1,Rh1},padding=0.2ex]  & 680. \textbf{RBQKBNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Qc1,Kd1,Be1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+681. \textbf{RBQKBRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Qc1,Kd1,Be1,Rf1,Ng1,Nh1},padding=0.2ex]  & 682. \textbf{RBQKNNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Qc1,Kd1,Ne1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+683. \textbf{RBQKNRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Qc1,Kd1,Ne1,Rf1,Bg1,Nh1},padding=0.2ex]  & 684. \textbf{RBQKRNBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Qc1,Kd1,Re1,Nf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+685. \textbf{RBQNBKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Qc1,Nd1,Be1,Kf1,Ng1,Rh1},padding=0.2ex]  & 686. \textbf{RBQNBKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Qc1,Nd1,Be1,Kf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+687. \textbf{RBQNBNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Qc1,Nd1,Be1,Nf1,Kg1,Rh1},padding=0.2ex]  & 688. \textbf{RBQNKNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Qc1,Nd1,Ke1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+689. \textbf{RBQNKRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Qc1,Nd1,Ke1,Rf1,Bg1,Nh1},padding=0.2ex]  & 690. \textbf{RBQNNKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Bb1,Qc1,Nd1,Ne1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+691. \textbf{RKBBNNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Bd1,Ne1,Nf1,Qg1,Rh1},padding=0.2ex]  & 692. \textbf{RKBBNNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Bd1,Ne1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+693. \textbf{RKBBNQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Bd1,Ne1,Qf1,Ng1,Rh1},padding=0.2ex]  & 694. \textbf{RKBBNQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Bd1,Ne1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+695. \textbf{RKBBNRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Bd1,Ne1,Rf1,Ng1,Qh1},padding=0.2ex]  & 696. \textbf{RKBBNRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Bd1,Ne1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+697. \textbf{RKBBQNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Bd1,Qe1,Nf1,Ng1,Rh1},padding=0.2ex]  & 698. \textbf{RKBBQNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Bd1,Qe1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+699. \textbf{RKBBQRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Bd1,Qe1,Rf1,Ng1,Nh1},padding=0.2ex]  & 700. \textbf{RKBBRNNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Bd1,Re1,Nf1,Ng1,Qh1},padding=0.2ex]  \\\hline
+701. \textbf{RKBBRNQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Bd1,Re1,Nf1,Qg1,Nh1},padding=0.2ex]  & 702. \textbf{RKBBRQNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Bd1,Re1,Qf1,Ng1,Nh1},padding=0.2ex]  \\\hline
+703. \textbf{RKBNNBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Nd1,Ne1,Bf1,Qg1,Rh1},padding=0.2ex]  & 704. \textbf{RKBNNBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Nd1,Ne1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+705. \textbf{RKBNNQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Nd1,Ne1,Qf1,Rg1,Bh1},padding=0.2ex]  & 706. \textbf{RKBNNRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Nd1,Ne1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+707. \textbf{RKBNQBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Nd1,Qe1,Bf1,Ng1,Rh1},padding=0.2ex]  & 708. \textbf{RKBNQBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Nd1,Qe1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+709. \textbf{RKBNQNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Nd1,Qe1,Nf1,Rg1,Bh1},padding=0.2ex]  & 710. \textbf{RKBNQRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Nd1,Qe1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+711. \textbf{RKBNRBNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Nd1,Re1,Bf1,Ng1,Qh1},padding=0.2ex]  & 712. \textbf{RKBNRBQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Nd1,Re1,Bf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+713. \textbf{RKBNRNQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Nd1,Re1,Nf1,Qg1,Bh1},padding=0.2ex]  & 714. \textbf{RKBNRQNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Nd1,Re1,Qf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+715. \textbf{RKBQNBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Qd1,Ne1,Bf1,Ng1,Rh1},padding=0.2ex]  & 716. \textbf{RKBQNBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Qd1,Ne1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+717. \textbf{RKBQNNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Qd1,Ne1,Nf1,Rg1,Bh1},padding=0.2ex]  & 718. \textbf{RKBQNRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Qd1,Ne1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+719. \textbf{RKBQRBNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Qd1,Re1,Bf1,Ng1,Nh1},padding=0.2ex]  & 720. \textbf{RKBQRNNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Qd1,Re1,Nf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+721. \textbf{RKBRNBNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Rd1,Ne1,Bf1,Ng1,Qh1},padding=0.2ex]  & 722. \textbf{RKBRNBQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Rd1,Ne1,Bf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+723. \textbf{RKBRNNQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Rd1,Ne1,Nf1,Qg1,Bh1},padding=0.2ex]  & 724. \textbf{RKBRNQNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Rd1,Ne1,Qf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+725. \textbf{RKBRQBNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Rd1,Qe1,Bf1,Ng1,Nh1},padding=0.2ex]  & 726. \textbf{RKBRQNNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Bc1,Rd1,Qe1,Nf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+727. \textbf{RKNBBNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Bd1,Be1,Nf1,Qg1,Rh1},padding=0.2ex]  & 728. \textbf{RKNBBNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Bd1,Be1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+729. \textbf{RKNBBQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Bd1,Be1,Qf1,Ng1,Rh1},padding=0.2ex]  & 730. \textbf{RKNBBQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Bd1,Be1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+731. \textbf{RKNBBRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Bd1,Be1,Rf1,Ng1,Qh1},padding=0.2ex]  & 732. \textbf{RKNBBRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Bd1,Be1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+733. \textbf{RKNBNQBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Bd1,Ne1,Qf1,Bg1,Rh1},padding=0.2ex]  & 734. \textbf{RKNBNRBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Bd1,Ne1,Rf1,Bg1,Qh1},padding=0.2ex]  \\\hline
+735. \textbf{RKNBQNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Bd1,Qe1,Nf1,Bg1,Rh1},padding=0.2ex]  & 736. \textbf{RKNBQRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Bd1,Qe1,Rf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+737. \textbf{RKNBRNBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Bd1,Re1,Nf1,Bg1,Qh1},padding=0.2ex]  & 738. \textbf{RKNBRQBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Bd1,Re1,Qf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+739. \textbf{RKNNBBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Nd1,Be1,Bf1,Qg1,Rh1},padding=0.2ex]  & 740. \textbf{RKNNBBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Nd1,Be1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+741. \textbf{RKNNBQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Nd1,Be1,Qf1,Rg1,Bh1},padding=0.2ex]  & 742. \textbf{RKNNBRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Nd1,Be1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+743. \textbf{RKNNQBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Nd1,Qe1,Bf1,Bg1,Rh1},padding=0.2ex]  & 744. \textbf{RKNNQRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Nd1,Qe1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+745. \textbf{RKNNRBBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Nd1,Re1,Bf1,Bg1,Qh1},padding=0.2ex]  & 746. \textbf{RKNNRQBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Nd1,Re1,Qf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+747. \textbf{RKNQBBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Qd1,Be1,Bf1,Ng1,Rh1},padding=0.2ex]  & 748. \textbf{RKNQBBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Qd1,Be1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+749. \textbf{RKNQBNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Qd1,Be1,Nf1,Rg1,Bh1},padding=0.2ex]  & 750. \textbf{RKNQBRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Qd1,Be1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+751. \textbf{RKNQNBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Qd1,Ne1,Bf1,Bg1,Rh1},padding=0.2ex]  & 752. \textbf{RKNQNRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Qd1,Ne1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+753. \textbf{RKNQRBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Qd1,Re1,Bf1,Bg1,Nh1},padding=0.2ex]  & 754. \textbf{RKNQRNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Qd1,Re1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+755. \textbf{RKNRBBNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Rd1,Be1,Bf1,Ng1,Qh1},padding=0.2ex]  & 756. \textbf{RKNRBBQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Rd1,Be1,Bf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+757. \textbf{RKNRBNQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Rd1,Be1,Nf1,Qg1,Bh1},padding=0.2ex]  & 758. \textbf{RKNRBQNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Rd1,Be1,Qf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+759. \textbf{RKNRNBBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Rd1,Ne1,Bf1,Bg1,Qh1},padding=0.2ex]  & 760. \textbf{RKNRNQBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Rd1,Ne1,Qf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+761. \textbf{RKNRQBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Rd1,Qe1,Bf1,Bg1,Nh1},padding=0.2ex]  & 762. \textbf{RKNRQNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Nc1,Rd1,Qe1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+763. \textbf{RKQBBNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Bd1,Be1,Nf1,Ng1,Rh1},padding=0.2ex]  & 764. \textbf{RKQBBNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Bd1,Be1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+765. \textbf{RKQBBRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Bd1,Be1,Rf1,Ng1,Nh1},padding=0.2ex]  & 766. \textbf{RKQBNNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Bd1,Ne1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+767. \textbf{RKQBNRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Bd1,Ne1,Rf1,Bg1,Nh1},padding=0.2ex]  & 768. \textbf{RKQBRNBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Bd1,Re1,Nf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+769. \textbf{RKQNBBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Nd1,Be1,Bf1,Ng1,Rh1},padding=0.2ex]  & 770. \textbf{RKQNBBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Nd1,Be1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+771. \textbf{RKQNBNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Nd1,Be1,Nf1,Rg1,Bh1},padding=0.2ex]  & 772. \textbf{RKQNBRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Nd1,Be1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+773. \textbf{RKQNNBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Nd1,Ne1,Bf1,Bg1,Rh1},padding=0.2ex]  & 774. \textbf{RKQNNRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Nd1,Ne1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+775. \textbf{RKQNRBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Nd1,Re1,Bf1,Bg1,Nh1},padding=0.2ex]  & 776. \textbf{RKQNRNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Nd1,Re1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+777. \textbf{RKQRBBNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Rd1,Be1,Bf1,Ng1,Nh1},padding=0.2ex]  & 778. \textbf{RKQRBNNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Rd1,Be1,Nf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+779. \textbf{RKQRNBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Rd1,Ne1,Bf1,Bg1,Nh1},padding=0.2ex]  & 780. \textbf{RKQRNNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Qc1,Rd1,Ne1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+781. \textbf{RKRBBNNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Bd1,Be1,Nf1,Ng1,Qh1},padding=0.2ex]  & 782. \textbf{RKRBBNQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Bd1,Be1,Nf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+783. \textbf{RKRBBQNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Bd1,Be1,Qf1,Ng1,Nh1},padding=0.2ex]  & 784. \textbf{RKRBNNBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Bd1,Ne1,Nf1,Bg1,Qh1},padding=0.2ex]  \\\hline
+785. \textbf{RKRBNQBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Bd1,Ne1,Qf1,Bg1,Nh1},padding=0.2ex]  & 786. \textbf{RKRBQNBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Bd1,Qe1,Nf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+787. \textbf{RKRNBBNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Nd1,Be1,Bf1,Ng1,Qh1},padding=0.2ex]  & 788. \textbf{RKRNBBQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Nd1,Be1,Bf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+789. \textbf{RKRNBNQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Nd1,Be1,Nf1,Qg1,Bh1},padding=0.2ex]  & 790. \textbf{RKRNBQNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Nd1,Be1,Qf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+791. \textbf{RKRNNBBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Nd1,Ne1,Bf1,Bg1,Qh1},padding=0.2ex]  & 792. \textbf{RKRNNQBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Nd1,Ne1,Qf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+793. \textbf{RKRNQBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Nd1,Qe1,Bf1,Bg1,Nh1},padding=0.2ex]  & 794. \textbf{RKRNQNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Nd1,Qe1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+795. \textbf{RKRQBBNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Qd1,Be1,Bf1,Ng1,Nh1},padding=0.2ex]  & 796. \textbf{RKRQBNNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Qd1,Be1,Nf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+797. \textbf{RKRQNBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Qd1,Ne1,Bf1,Bg1,Nh1},padding=0.2ex]  & 798. \textbf{RKRQNNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Kb1,Rc1,Qd1,Ne1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+799. \textbf{RNBBKNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Bd1,Ke1,Nf1,Qg1,Rh1},padding=0.2ex]  & 800. \textbf{RNBBKNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Bd1,Ke1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+801. \textbf{RNBBKQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Bd1,Ke1,Qf1,Ng1,Rh1},padding=0.2ex]  & 802. \textbf{RNBBKQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Bd1,Ke1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+803. \textbf{RNBBKRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Bd1,Ke1,Rf1,Ng1,Qh1},padding=0.2ex]  & 804. \textbf{RNBBKRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Bd1,Ke1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+805. \textbf{RNBBNKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Bd1,Ne1,Kf1,Qg1,Rh1},padding=0.2ex]  & 806. \textbf{RNBBNKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Bd1,Ne1,Kf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+807. \textbf{RNBBNQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Bd1,Ne1,Qf1,Kg1,Rh1},padding=0.2ex]  & 808. \textbf{RNBBQKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Bd1,Qe1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+809. \textbf{RNBBQKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Bd1,Qe1,Kf1,Rg1,Nh1},padding=0.2ex]  & 810. \textbf{RNBBQNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Bd1,Qe1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+811. \textbf{RNBKNBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Kd1,Ne1,Bf1,Qg1,Rh1},padding=0.2ex]  & 812. \textbf{RNBKNBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Kd1,Ne1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+813. \textbf{RNBKNQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Kd1,Ne1,Qf1,Rg1,Bh1},padding=0.2ex]  & 814. \textbf{RNBKNRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Kd1,Ne1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+815. \textbf{RNBKQBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Kd1,Qe1,Bf1,Ng1,Rh1},padding=0.2ex]  & 816. \textbf{RNBKQBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Kd1,Qe1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+817. \textbf{RNBKQNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Kd1,Qe1,Nf1,Rg1,Bh1},padding=0.2ex]  & 818. \textbf{RNBKQRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Kd1,Qe1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+819. \textbf{RNBKRBNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Kd1,Re1,Bf1,Ng1,Qh1},padding=0.2ex]  & 820. \textbf{RNBKRBQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Kd1,Re1,Bf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+821. \textbf{RNBKRNQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Kd1,Re1,Nf1,Qg1,Bh1},padding=0.2ex]  & 822. \textbf{RNBKRQNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Kd1,Re1,Qf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+823. \textbf{RNBNKBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Nd1,Ke1,Bf1,Qg1,Rh1},padding=0.2ex]  & 824. \textbf{RNBNKBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Nd1,Ke1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+825. \textbf{RNBNKQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Nd1,Ke1,Qf1,Rg1,Bh1},padding=0.2ex]  & 826. \textbf{RNBNKRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Nd1,Ke1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+827. \textbf{RNBNQBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Nd1,Qe1,Bf1,Kg1,Rh1},padding=0.2ex]  & 828. \textbf{RNBNQKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Nd1,Qe1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+\cellcolor{blue!25}\textcolor{red}{829. \textbf{RNBQKBNR}} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Qd1,Ke1,Bf1,Ng1,Rh1},padding=0.2ex]  & 830. \textbf{RNBQKBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Qd1,Ke1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+831. \textbf{RNBQKNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Qd1,Ke1,Nf1,Rg1,Bh1},padding=0.2ex]  & 832. \textbf{RNBQKRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Qd1,Ke1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+833. \textbf{RNBQNBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Qd1,Ne1,Bf1,Kg1,Rh1},padding=0.2ex]  & 834. \textbf{RNBQNKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Bc1,Qd1,Ne1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+835. \textbf{RNKBBNQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Bd1,Be1,Nf1,Qg1,Rh1},padding=0.2ex]  & 836. \textbf{RNKBBNRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Bd1,Be1,Nf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+837. \textbf{RNKBBQNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Bd1,Be1,Qf1,Ng1,Rh1},padding=0.2ex]  & 838. \textbf{RNKBBQRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Bd1,Be1,Qf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+839. \textbf{RNKBBRNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Bd1,Be1,Rf1,Ng1,Qh1},padding=0.2ex]  & 840. \textbf{RNKBBRQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Bd1,Be1,Rf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+841. \textbf{RNKBNQBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Bd1,Ne1,Qf1,Bg1,Rh1},padding=0.2ex]  & 842. \textbf{RNKBNRBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Bd1,Ne1,Rf1,Bg1,Qh1},padding=0.2ex]  \\\hline
+843. \textbf{RNKBQNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Bd1,Qe1,Nf1,Bg1,Rh1},padding=0.2ex]  & 844. \textbf{RNKBQRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Bd1,Qe1,Rf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+845. \textbf{RNKBRNBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Bd1,Re1,Nf1,Bg1,Qh1},padding=0.2ex]  & 846. \textbf{RNKBRQBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Bd1,Re1,Qf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+847. \textbf{RNKNBBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Nd1,Be1,Bf1,Qg1,Rh1},padding=0.2ex]  & 848. \textbf{RNKNBBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Nd1,Be1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+849. \textbf{RNKNBQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Nd1,Be1,Qf1,Rg1,Bh1},padding=0.2ex]  & 850. \textbf{RNKNBRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Nd1,Be1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+851. \textbf{RNKNQBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Nd1,Qe1,Bf1,Bg1,Rh1},padding=0.2ex]  & 852. \textbf{RNKNQRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Nd1,Qe1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+853. \textbf{RNKNRBBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Nd1,Re1,Bf1,Bg1,Qh1},padding=0.2ex]  & 854. \textbf{RNKNRQBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Nd1,Re1,Qf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+855. \textbf{RNKQBBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Qd1,Be1,Bf1,Ng1,Rh1},padding=0.2ex]  & 856. \textbf{RNKQBBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Qd1,Be1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+857. \textbf{RNKQBNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Qd1,Be1,Nf1,Rg1,Bh1},padding=0.2ex]  & 858. \textbf{RNKQBRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Qd1,Be1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+859. \textbf{RNKQNBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Qd1,Ne1,Bf1,Bg1,Rh1},padding=0.2ex]  & 860. \textbf{RNKQNRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Qd1,Ne1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+861. \textbf{RNKQRBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Qd1,Re1,Bf1,Bg1,Nh1},padding=0.2ex]  & 862. \textbf{RNKQRNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Qd1,Re1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+863. \textbf{RNKRBBNQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Rd1,Be1,Bf1,Ng1,Qh1},padding=0.2ex]  & 864. \textbf{RNKRBBQN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Rd1,Be1,Bf1,Qg1,Nh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+865. \textbf{RNKRBNQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Rd1,Be1,Nf1,Qg1,Bh1},padding=0.2ex]  & 866. \textbf{RNKRBQNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Rd1,Be1,Qf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+867. \textbf{RNKRNBBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Rd1,Ne1,Bf1,Bg1,Qh1},padding=0.2ex]  & 868. \textbf{RNKRNQBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Rd1,Ne1,Qf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+869. \textbf{RNKRQBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Rd1,Qe1,Bf1,Bg1,Nh1},padding=0.2ex]  & 870. \textbf{RNKRQNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Kc1,Rd1,Qe1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+871. \textbf{RNNBBKQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Bd1,Be1,Kf1,Qg1,Rh1},padding=0.2ex]  & 872. \textbf{RNNBBKRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Bd1,Be1,Kf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+873. \textbf{RNNBBQKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Bd1,Be1,Qf1,Kg1,Rh1},padding=0.2ex]  & 874. \textbf{RNNBKQBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Bd1,Ke1,Qf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+875. \textbf{RNNBKRBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Bd1,Ke1,Rf1,Bg1,Qh1},padding=0.2ex]  & 876. \textbf{RNNBQKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Bd1,Qe1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+877. \textbf{RNNKBBQR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Kd1,Be1,Bf1,Qg1,Rh1},padding=0.2ex]  & 878. \textbf{RNNKBBRQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Kd1,Be1,Bf1,Rg1,Qh1},padding=0.2ex]  \\\hline
+879. \textbf{RNNKBQRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Kd1,Be1,Qf1,Rg1,Bh1},padding=0.2ex]  & 880. \textbf{RNNKBRQB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Kd1,Be1,Rf1,Qg1,Bh1},padding=0.2ex]  \\\hline
+881. \textbf{RNNKQBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Kd1,Qe1,Bf1,Bg1,Rh1},padding=0.2ex]  & 882. \textbf{RNNKQRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Kd1,Qe1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+883. \textbf{RNNKRBBQ} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Kd1,Re1,Bf1,Bg1,Qh1},padding=0.2ex]  & 884. \textbf{RNNKRQBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Kd1,Re1,Qf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+885. \textbf{RNNQBBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Qd1,Be1,Bf1,Kg1,Rh1},padding=0.2ex]  & 886. \textbf{RNNQBKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Qd1,Be1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+887. \textbf{RNNQKBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Qd1,Ke1,Bf1,Bg1,Rh1},padding=0.2ex]  & 888. \textbf{RNNQKRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Nc1,Qd1,Ke1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+889. \textbf{RNQBBKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Bd1,Be1,Kf1,Ng1,Rh1},padding=0.2ex]  & 890. \textbf{RNQBBKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Bd1,Be1,Kf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+891. \textbf{RNQBBNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Bd1,Be1,Nf1,Kg1,Rh1},padding=0.2ex]  & 892. \textbf{RNQBKNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Bd1,Ke1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+893. \textbf{RNQBKRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Bd1,Ke1,Rf1,Bg1,Nh1},padding=0.2ex]  & 894. \textbf{RNQBNKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Bd1,Ne1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+895. \textbf{RNQKBBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Kd1,Be1,Bf1,Ng1,Rh1},padding=0.2ex]  & 896. \textbf{RNQKBBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Kd1,Be1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+897. \textbf{RNQKBNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Kd1,Be1,Nf1,Rg1,Bh1},padding=0.2ex]  & 898. \textbf{RNQKBRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Kd1,Be1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+899. \textbf{RNQKNBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Kd1,Ne1,Bf1,Bg1,Rh1},padding=0.2ex]  & 900. \textbf{RNQKNRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Kd1,Ne1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+901. \textbf{RNQKRBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Kd1,Re1,Bf1,Bg1,Nh1},padding=0.2ex]  & 902. \textbf{RNQKRNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Kd1,Re1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+903. \textbf{RNQNBBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Nd1,Be1,Bf1,Kg1,Rh1},padding=0.2ex]  & 904. \textbf{RNQNBKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Nd1,Be1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+905. \textbf{RNQNKBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Nd1,Ke1,Bf1,Bg1,Rh1},padding=0.2ex]  & 906. \textbf{RNQNKRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Nb1,Qc1,Nd1,Ke1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+907. \textbf{RQBBKNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Bd1,Ke1,Nf1,Ng1,Rh1},padding=0.2ex]  & 908. \textbf{RQBBKNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Bd1,Ke1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+909. \textbf{RQBBKRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Bd1,Ke1,Rf1,Ng1,Nh1},padding=0.2ex]  & 910. \textbf{RQBBNKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Bd1,Ne1,Kf1,Ng1,Rh1},padding=0.2ex]  \\\hline
+911. \textbf{RQBBNKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Bd1,Ne1,Kf1,Rg1,Nh1},padding=0.2ex]  & 912. \textbf{RQBBNNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Bd1,Ne1,Nf1,Kg1,Rh1},padding=0.2ex]  \\\hline
+913. \textbf{RQBKNBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Kd1,Ne1,Bf1,Ng1,Rh1},padding=0.2ex]  & 914. \textbf{RQBKNBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Kd1,Ne1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+915. \textbf{RQBKNNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Kd1,Ne1,Nf1,Rg1,Bh1},padding=0.2ex]  & 916. \textbf{RQBKNRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Kd1,Ne1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+917. \textbf{RQBKRBNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Kd1,Re1,Bf1,Ng1,Nh1},padding=0.2ex]  & 918. \textbf{RQBKRNNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Kd1,Re1,Nf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+919. \textbf{RQBNKBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Nd1,Ke1,Bf1,Ng1,Rh1},padding=0.2ex]  & 920. \textbf{RQBNKBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Nd1,Ke1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+921. \textbf{RQBNKNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Nd1,Ke1,Nf1,Rg1,Bh1},padding=0.2ex]  & 922. \textbf{RQBNKRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Nd1,Ke1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+923. \textbf{RQBNNBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Nd1,Ne1,Bf1,Kg1,Rh1},padding=0.2ex]  & 924. \textbf{RQBNNKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Bc1,Nd1,Ne1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+925. \textbf{RQKBBNNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Bd1,Be1,Nf1,Ng1,Rh1},padding=0.2ex]  & 926. \textbf{RQKBBNRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Bd1,Be1,Nf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+927. \textbf{RQKBBRNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Bd1,Be1,Rf1,Ng1,Nh1},padding=0.2ex]  & 928. \textbf{RQKBNNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Bd1,Ne1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+\end{tabular}
+\newpage
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{lightgray}
+\textbf{C1} & \textbf{C2} \\\hline
+929. \textbf{RQKBNRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Bd1,Ne1,Rf1,Bg1,Nh1},padding=0.2ex]  & 930. \textbf{RQKBRNBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Bd1,Re1,Nf1,Bg1,Nh1},padding=0.2ex]  \\\hline
+931. \textbf{RQKNBBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Nd1,Be1,Bf1,Ng1,Rh1},padding=0.2ex]  & 932. \textbf{RQKNBBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Nd1,Be1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+933. \textbf{RQKNBNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Nd1,Be1,Nf1,Rg1,Bh1},padding=0.2ex]  & 934. \textbf{RQKNBRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Nd1,Be1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+935. \textbf{RQKNNBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Nd1,Ne1,Bf1,Bg1,Rh1},padding=0.2ex]  & 936. \textbf{RQKNNRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Nd1,Ne1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+937. \textbf{RQKNRBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Nd1,Re1,Bf1,Bg1,Nh1},padding=0.2ex]  & 938. \textbf{RQKNRNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Nd1,Re1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+939. \textbf{RQKRBBNN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Rd1,Be1,Bf1,Ng1,Nh1},padding=0.2ex]  & 940. \textbf{RQKRBNNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Rd1,Be1,Nf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+941. \textbf{RQKRNBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Rd1,Ne1,Bf1,Bg1,Nh1},padding=0.2ex]  & 942. \textbf{RQKRNNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Kc1,Rd1,Ne1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+943. \textbf{RQNBBKNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Bd1,Be1,Kf1,Ng1,Rh1},padding=0.2ex]  & 944. \textbf{RQNBBKRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Bd1,Be1,Kf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+945. \textbf{RQNBBNKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Bd1,Be1,Nf1,Kg1,Rh1},padding=0.2ex]  & 946. \textbf{RQNBKNBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Bd1,Ke1,Nf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+947. \textbf{RQNBKRBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Bd1,Ke1,Rf1,Bg1,Nh1},padding=0.2ex]  & 948. \textbf{RQNBNKBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Bd1,Ne1,Kf1,Bg1,Rh1},padding=0.2ex]  \\\hline
+949. \textbf{RQNKBBNR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Kd1,Be1,Bf1,Ng1,Rh1},padding=0.2ex]  & 950. \textbf{RQNKBBRN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Kd1,Be1,Bf1,Rg1,Nh1},padding=0.2ex]  \\\hline
+951. \textbf{RQNKBNRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Kd1,Be1,Nf1,Rg1,Bh1},padding=0.2ex]  & 952. \textbf{RQNKBRNB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Kd1,Be1,Rf1,Ng1,Bh1},padding=0.2ex]  \\\hline
+953. \textbf{RQNKNBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Kd1,Ne1,Bf1,Bg1,Rh1},padding=0.2ex]  & 954. \textbf{RQNKNRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Kd1,Ne1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+955. \textbf{RQNKRBBN} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Kd1,Re1,Bf1,Bg1,Nh1},padding=0.2ex]  & 956. \textbf{RQNKRNBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Kd1,Re1,Nf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+957. \textbf{RQNNBBKR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Nd1,Be1,Bf1,Kg1,Rh1},padding=0.2ex]  & 958. \textbf{RQNNBKRB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Nd1,Be1,Kf1,Rg1,Bh1},padding=0.2ex]  \\\hline
+959. \textbf{RQNNKBBR} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Nd1,Ke1,Bf1,Bg1,Rh1},padding=0.2ex]  & 960. \textbf{RQNNKRBB} \chessboard[style=8x1,boardfontsize=12pt,setpieces={Ra1,Qb1,Nc1,Nd1,Ke1,Rf1,Bg1,Bh1},padding=0.2ex]  \\\hline
+\end{tabular}
+
+\end{document}

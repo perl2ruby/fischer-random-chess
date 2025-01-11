@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage[table,usenames,dvipsnames]{xcolor}
+\usepackage{xskak}
+\usepackage[bottom=2.0cm, right=2.0cm, left=2.0cm, top=2.0cm]{geometry}
+\usepackage{fancyhdr}
+
+% https://www.overleaf.com/learn/latex/Headers_and_footers#LaTeX_page_styles
+% https://www.overleaf.com/learn/latex/Headers_and_footers#Changing_headers_and_footers_for_%E2%80%9Cnon_standard%E2%80%9D_LaTeX_document_classes
+\begin{document}
+\pagestyle{fancy}
+\fancyhead{} % clear all header fields
+\fancyfoot{} % clear all footer fields
+\fancyhead[R]{\thepage}
+
+\title{Unique Starting Positions in Fischer Random Chess}
+\author{}
+\date{}
+\maketitle
+
+\section{Introduction}
+
+Chess960, also known as Fischer Random Chess, is a chess variant where the starting position of the pieces on the first rank is randomized, subject to certain constraints. This randomization leads to 960 unique possible starting positions. This document will mathematically derive this number using combinatorial principles.
+
+\section{Constraints}
+
+The arrangement of pieces in Chess960 must adhere to the following rules:
+
+\begin{enumerate}
+    \item The king must be placed somewhere between the two rooks.
+    \item The bishops must be placed on opposite-colored squares.
+    \item The white pieces are placed on the first rank, and the black pieces are placed on the eighth rank, mirroring the white pieces' arrangement.
+\end{enumerate}
+
+\section{Derivation}
+
+To calculate the total number of possible starting positions, we will break down the placement of pieces into independent choices and use the multiplication principle of counting.
+
+\subsection{Bishop Placement}
+
+There are 4 light squares and 4 dark squares on the first rank. We must place one bishop on a light square and one bishop on a dark square.
+
+\begin{itemize}
+    \item Number of ways to choose a light square for the first bishop: 4
+    \item Number of ways to choose a dark square for the second bishop: 4
+\end{itemize}
+
+Therefore, the number of ways to place the bishops is $4 \times 4 = 16$.
+
+\subsection{Queen Placement}
+
+After placing the bishops, there are 6 remaining empty squares. The queen can be placed on any of these 6 squares.
+
+\begin{itemize}
+    \item Number of ways to place the queen: 6
+\end{itemize}
+
+\subsection{Knight Placement}
+
+With the bishops and queen placed, there are 5 empty squares left. We need to place two knights. The order in which we place the knights does not matter, so we will use combinations.
+
+\begin{itemize}
+    \item Number of ways to choose 2 squares out of 5 for the knights: $\binom{5}{2} = \frac{5!}{2!(5-2)!} = \frac{5 \times 4}{2 \times 1} = 10$
+\end{itemize}
+
+\subsection{Rook and King Placement}
+
+After placing the bishops, queen, and knights, there are 3 empty squares remaining. The king must be placed between the two rooks. This leaves only one possible configuration for the rooks and king: Rook, King, Rook.
+
+\begin{itemize}
+    \item Number of ways to place the rooks and king: 1
+\end{itemize}
+
+\section{Total Number of Positions}
+
+To get the total number of possible starting positions, we multiply the number of possibilities for each step:
+
+\[ \text{Total Positions} = \text{Bishop Positions} \times \text{Queen Positions} \times \text{Knight Positions} \times \text{Rook and King Positions} \]
+\[ \text{Total Positions} = 16 \times 6 \times 10 \times 1 = 960 \]
+
+\section{Conclusion}
+Therefore, there are 960 possible starting positions in Chess960 (Fischer Random Chess), as derived mathematically using combinatorial principles.
+
+\appendix
+
+\section{Starting Postions Enumerated}
+We now enumerate these positions using a simple notation. The major pieces are \textbf{B} (Bishop), \textbf{K} (King), \textbf{N} (Knight), \textbf{Q} (Queen) and \textbf{R} (Rook). The starting positions are shown lexicographically sorted -- for example, \textbf{BBNNQRKR} precedes \textbf{NBBRQKNR}. Each starting postion has a unique number associated with it which denotes the position's lexicographic order within the universe of Fischer Random games. At some point the lexicographic order of the starting postion (or the string representing the position) could be used in \textbf{PGN} files to denote that that game is a Fischer Random game. Additionally, this information could be useful in searching game databases for games involving a specific starting position and the lookup could either be based on the lexicographic order number or the string representing  the starting position. The normal chess game corresponds to \textbf{RNBQKBNR} whose lexicographic number is \textbf{829}. 
+
+
+%----- BEGIN: pasting output from gen-fischer-random-placements.rb -------
+% The resulting file after pasting the output is: fischer-random-chess.tex
+%----- END: pasting output from gen-fischer-random-placements.rb ---------
+
+\end{document}
