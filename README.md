@@ -1,6 +1,6 @@
 # Fischer Random Chess
 ## Introduction
-Fischer Random Chess is a variant of Chess. To know more about Fisher Random Chess, please to the (Chess960)[https://en.wikipedia.org/wiki/Chess960] wiki page.
+Fischer Random Chess is a variant of Chess. To know more about Fisher Random Chess, please to the [Chess960](https://en.wikipedia.org/wiki/Chess960) wiki page.
 This repo is used to create a LaTeX document that shows how there are 960 unique starting combinations for Fischer Random Chess. We also enumrate these 960 unique combinations.
 
 ## Contents of Repo
