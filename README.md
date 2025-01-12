@@ -20,7 +20,7 @@ The following are important files:
 ## PDF Document Generation
 The main document is a PDF document (`fischer-random-chess.pdf`) and is [here](./tex/fischer-random-chess.pdf).
 
-To generate the PDF ([`fischer-random-chess.tex`](./tex/fischer-random-chess.tex)) run the following command(s):
+To generate the PDF ([`fischer-random-chess.pdf`](./tex/fischer-random-chess.pdf)) run the following command(s):
 ```
 make cleanall # To clean up auxiliary files and the generated PDF
 make clean    # To clean up auxiliary files
